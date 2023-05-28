@@ -197,7 +197,7 @@ def calculation():
     elif liquid == 'oil':
         density = 1000
         elastic_modulus_of_liquid = 20300
-    pressure = heightWaterTower * density * 9, 806
+    pressure = heightWaterTower * density * 9.806
     if metal == 'copper':
         elastic_modulus_of_metal = 1020000
     elif metal == 'aluminium':
@@ -205,7 +205,8 @@ def calculation():
     elif metal == 'steel':
         elastic_modulus_of_metal = 2039400
     Part = density*defLiquidSpeed*(1/(math.sqrt(density*((heightPipe/(elastic_modulus_of_metal*widthWall))+(1/elastic_modulus_of_liquid)))))
-    return render_template('index.html', user=user, Part=Part);
+    absolute = pressure*((heightPipe**2)/(4*elastic_modulus_of_metal*widthWall))
+    return render_template('index.html', user=user, Part=Part, absolute=absolute)
 
 
 if __name__ == '__main__':
