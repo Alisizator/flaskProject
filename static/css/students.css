@@ -1,0 +1,265 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+}
+.logo{
+    display: flex;
+    justify-content: center;
+    width: auto;
+}
+img {
+    display: block;
+    max-width: 20%;
+    height: 10%;
+    margin-top: auto;
+}
+hr{
+    width: 100%;
+    height: 5px;
+    background-color: black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.mycontainer {
+    display: flex;
+    height: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+
+}
+
+.sidebar {
+
+    background-color: white;
+    color: #fff;
+    width: 10%;
+    padding: 0.8%;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    order: 1;
+}
+
+.sidebar::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background-color: black;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-top: 5%;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.sidebar button {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    display: inline-block;
+    padding: 10px;
+    outline: none;
+    border-style: solid none;
+    border-color: #FDBE33 #000 #D77206;
+    border-radius: 6px;
+    background: linear-gradient(#F3AE0F, #E38916) #E38916;
+    transition: 0.2s;
+    width: 100%;
+}
+
+.sidebar button:hover {
+    color: #f2f2f2;
+    background: linear-gradient(#f5ae00, #f59500) #f5ae00;
+    cursor: grab;
+}
+
+.labelnav{
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    background-color: #4CAF50;
+    border-radius: 4px;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.container2 {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+    order: 2;
+}
+
+.header {
+    text-align: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: rgba(211,211,211,0.15);
+}
+
+button[type="submit"] {
+
+    display: inline-block;
+    margin: 0 auto;
+    color: white;
+    text-decoration: none;
+    padding: .5em 2em;
+    outline: none;
+    border-width: 2px 0;
+    border-style: solid none;
+    border-color: #FDBE33 #000 #D77206;
+    border-radius: 6px;
+    background: linear-gradient(#F3AE0F, #E38916) #E38916;
+    transition: 0.2s;
+    position: relative;
+
+}
+
+button[type="submit"]:hover {
+    background: linear-gradient(#f5ae00, #f59500) #f5ae00;
+    color: #f2f2f2;
+    cursor: grab;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+thead tr {
+    background-color: #f2f2f2;
+    text-align: center;
+    align-items: center;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.page-btn, .prev-page-btn, .next-page-btn {
+    padding: 8px 16px;
+    border: none;
+    background-color: #f2f2f2;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+.active {
+    background-color: #ccc;
+}
+
+.table_sort table {
+    border-collapse: collapse;
+}
+
+.table_sort th {
+    color:
+#ffebcd;
+    background:
+#008b8b;
+    cursor: pointer;
+}
+
+.table_sort td,
+.table_sort th {
+    width: 150px;
+    height: 40px;
+    text-align: center;
+    border: 2px solid
+#846868;
+}
+
+.table_sort tbody tr:nth-child(even) {
+    background:
+#e3e3e3;
+}
+
+th.sorted[data-order="1"],
+th.sorted[data-order="-1"] {
+    position: relative;
+}
+th{
+    color: red;
+    text-align: center;
+}
+td{
+    text-align: center;
+}
+
+.sortable {
+  position: relative;
+  cursor: pointer;
+}
+
+.sort-symbol {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+}
+
+.sorted-asc .sort-symbol::after {
+  content: "▲";
+}
+
+.sorted-desc .sort-symbol::after {
+  content: "▼";
+}

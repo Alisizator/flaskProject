@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список студентов</title>
+    <link rel="stylesheet" href="../static/css/students.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+   <script src="../static/sort.js"></script>
+</head>
+<body>
+<div class="align">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        <span>{{ message }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+<div class="logo">
+    <img src="/static/logo.jpg" alt="Ошибка загрузки">
+</div>
+<hr>
+<div class="mycontainer">
+    <nav class="sidebar">
+        <ul>
+            <li><button type="button" onclick="window.location.href='/'">Главная страница</button></li>
+            <li><button type="button" onclick="window.location.href='profile'">Мой профиль</button></li>
+            <li><button type="button" onclick="window.location.href='students'">Список студентов</button></li>
+            <li><button type="button" onclick="window.location.href='logout'">Выйти</button></li>
+        </ul>
+    </nav>
+<div class="container2">
+    <div class="header">
+        <h1>Список студентов</h1>
+    </div>
+    <div class="table-container">
+        <table id="userTable">
+            <thead>
+            <tr>
+                <th onclick="sortTable(0)" class="sortable">ФИО <span class="sort-symbol"></span></th>
+                <th onclick="sortTable(1)" class="sortable">Статус <span class="sort-symbol"></span></th>
+                <th onclick="sortTable(2)" class="sortable">Группа <span class="sort-symbol"></span></th>
+                <th onclick="sortTable(3)" class="sortable">EMail <span class="sort-symbol"></span></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                   <tr>
+                       <td>{{ student.full_name }}</td>
+                       <td>{{ student.status }}</td>
+                       <td>{{ student.group_code }}</td>
+                       <td>{{ student.email }}</td>
+                   </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+<hr>
+<div class="container2">
+    {% if user.role == "admin" %}
+        <form action="/make_professor" method="post">
+            <label for="email">E-mail преподавателя:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+            <button type="submit">Назначить преподавателем</button>
+        </form>
+    {% endif %}
+</div>
+</body>
+</html>

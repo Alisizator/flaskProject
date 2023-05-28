@@ -1,0 +1,137 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+}
+.logo{
+    display: flex;
+    justify-content: center;
+    width: auto;
+}
+img {
+    display: block;
+    max-width: 20%;
+    height: 10%;
+    margin-top: auto;
+}
+hr{
+    width: 100%;
+    height: 5px;
+    background-color: black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.sidebar {
+    background-color: white;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+/*.sidebar::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background-color: black;
+}*/
+
+.sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.sidebar li {
+    margin-right: 20px;
+}
+.sidebar li:last-child {
+    margin-right: 0;
+}
+.sidebar button {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    display: inline-block;
+    padding: 10px;
+    outline: none;
+    border-style: solid none;
+    border-color: #FDBE33 #000 #D77206;
+    border-radius: 6px;
+    background: linear-gradient(#F3AE0F, #E38916) #E38916;
+    transition: 0.2s;
+    width: 100%;
+}
+
+.sidebar button:hover {
+    color: #f2f2f2;
+    background: linear-gradient(#f5ae00, #f59500) #f5ae00;
+    cursor: grab;
+}
+
+
+.labelnav{
+    margin-right: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    background-color: #4CAF50;
+    border-radius: 4px;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+h2 {
+    text-align: center;
+}
+
+.content {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    gap: 5px;
+}
+
+.input-param {
+    width: 10%;
+    background-color: #f2f2f2;
+}
+
+.middle-blocks {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.model3d {
+    height: 50%;
+    background-color: #e6e6e6;
+}
+
+.graph {
+    height: 50%;
+    background-color: #d9d9d9;
+}
+
+.output-param {
+    width: 10%;
+    background-color: #cccccc;
+}

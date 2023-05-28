@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Мой профиль</title>
+    <link rel="stylesheet" href="../static/css/profile.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div class="align">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        <span>{{ message }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+<div class="logo">
+    <img src="/static/logo.jpg" alt="Ошибка загрузки">
+</div>
+<hr>
+
+<div class="mycontainer">
+    <nav class="sidebar">
+        <ul>
+            <li><button type="button" onclick="window.location.href='/'">Главная страница</button></li>
+            <li><button type="button" onclick="window.location.href='profile'">Мой профиль</button></li>
+            {% if user.role != "student" %}
+                <li><button type="button" onclick="window.location.href='students'">Список студентов</button></li>
+            {% endif %}
+            <li><button type="button" onclick="window.location.href='logout'">Выйти</button></li>
+        </ul>
+    </nav>
+    <main class="content">
+        <h1>Мой профиль</h1>
+            <form action="/update_profile" method="post">
+                <div class="input-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" value="{{ user.email }}">
+                </div>
+                <div class="input-group">
+                    <label for="full_name">ФИО:</label>
+                    <input type="text" id="full_name" name="full_name" value="{{ user.full_name }}">
+                </div>
+                <div class="input-group">
+                    {% if user.role == "student" %}
+                        <label for="group_code">Группа(XXX-XX-XX):</label>
+                        <input type="text" id="group_code" name="group_code" value="{{ user.group_code }}">
+                    {% endif %}
+                </div>
+                <div class="input-group">
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" name="password">
+                </div>
+                <div class="input-group">
+                    <label for="confirm_password">Подтверждение пароля:</label>
+                    <input type="password" id="confirm_password" name="confirm_password">
+                </div>
+                <br>
+                <button type="submit">Сохранить изменения</button>
+            </form>
+    </main>
+</div>
+<hr>
+</body>
+</html>
