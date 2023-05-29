@@ -187,7 +187,11 @@ def calculation():
     user = User.query.get(current_user.id)
     liquid = request.form.get('liquid')
     metal = request.form.get('metal')
-    defLiquidSpeed = float(request.form.get('defLiquidSpeed'))
+    try:
+        defLiquidSpeed = float(request.form.get('defLiquidSpeed'))
+    except ValueError:
+        flash("Значение начальной скорости не является числом", "danger")
+        return redirect(url_for('mainpage'))
     heightWaterTower = float(request.form.get('heightWaterTower'))
     heightPipe = float(request.form.get('heightPipe'))
     widthWall = float(request.form.get('widthWall'))
@@ -197,6 +201,9 @@ def calculation():
     elif liquid == 'oil':
         density = 1000
         elastic_modulus_of_liquid = 20300
+    else:
+        flash("Жидкость не выбрана", "danger")
+        return redirect(url_for('mainpage'))
     pressure = heightWaterTower * density * 9.806
     if metal == 'copper':
         elastic_modulus_of_metal = 1020000
@@ -204,6 +211,9 @@ def calculation():
         elastic_modulus_of_metal = 713800
     elif metal == 'steel':
         elastic_modulus_of_metal = 2039400
+    else:
+        flash("Материал трубопровода не выбран", "danger")
+        return redirect(url_for('mainpage'))
     Part = density*defLiquidSpeed*(1/(math.sqrt(density*((heightPipe/(elastic_modulus_of_metal*widthWall))+(1/elastic_modulus_of_liquid)))))
     absolute = pressure*((heightPipe**2)/(4*elastic_modulus_of_metal*widthWall))
     return render_template('index.html', user=user, Part=Part, absolute=absolute)

@@ -6,19 +6,33 @@ function draw (ctx,canvas,barrier,waterTower,pipe,bucket)
     waterTower.draw();
     pipe.draw();
     bucket.draw();
+    bucket.filledBucketHeight = 0; // Начальная заполненность ведра = 0
+    pipe.fieldPipe = 0; // Начальная заполненность трубы = 0
+    function drawBucket(){
+        ctx.clearRect(bucket.startX, bucket.startY + bucket.heightBucket - bucket.filledBucketHeight, bucket.widthBucket-bucket.bucketWallWidth*2, bucket.filledBucketHeight-bucket.bucketWallWidth);
 
-    // Check if the animation is complete
-    if (bucket.filledBucketHeight < bucket.heightBucket)
-    {
+        bucket.draw();
+        if (bucket.filledBucketHeight < bucket.heightBucket) // Проверка на заполненность ведра
+        {
+            window.requestAnimationFrame(drawBucket);
+        }
         bucket.filledBucketHeight += 1;
+}
+    function drawPipe(){ //анимация воды
+        ctx.clearRect(pipe.startX+pipe.widthWaterTower-pipe.widthWall, pipe.startY+pipe.heightWaterTower-pipe.heightPipe+pipe.widthWall,pipe.pipeLen+pipe.widthWall, pipe.heightPipe-pipe.widthWall*2);
+        pipe.draw();
+        if (pipe.fieldPipe < pipe.pipeLen+pipe.widthWall) // Проверка на заполненность трубы
+        {
+            window.requestAnimationFrame(drawPipe);
+        }
+        pipe.fieldPipe += 1;
     }
-    window.requestAnimationFrame(draw);
-
+    drawBucket();
+    drawPipe();
 }
 
 function prepareScene()
 {
-
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -46,8 +60,7 @@ function prepareScene()
     barrier.draw();
     waterTower.draw();
     pipe.draw();
-    bucket.filledBucketHeight = 20;
     bucket.draw();
 
-    //draw(ctx,canvas,barrier,waterTower,pipe,bucket);
+    draw(ctx,canvas,barrier,waterTower,pipe,bucket);
 }

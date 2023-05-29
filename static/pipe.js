@@ -9,6 +9,7 @@ class Pipe{
         this.heightWaterTower = heightWaterTower;
         this.widthWaterTower = widthWaterTower;
         this.ctx = ctx;
+        this.fieldPipe = 0;
     }
     draw()
     {
@@ -16,5 +17,7 @@ class Pipe{
         this.ctx.fillRect(this.startX+this.widthWaterTower, this.startY+this.heightWaterTower-this.heightPipe, this.pipeLen, this.heightPipe)
         this.ctx.fillStyle = "red";
         this.ctx.fillRect(this.startX+this.widthWaterTower-this.widthWall, this.startY+this.heightWaterTower-this.heightPipe+this.widthWall,this.pipeLen+this.widthWall, this.heightPipe-this.widthWall*2)
+        this.ctx.fillStyle = "orange";
+        this.ctx.fillRect(this.startX+this.widthWaterTower-this.widthWall, this.startY+this.heightWaterTower-this.heightPipe+this.widthWall,this.fieldPipe, this.heightPipe-this.widthWall*2)
     }
 }
