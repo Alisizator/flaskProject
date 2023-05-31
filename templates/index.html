@@ -11,6 +11,7 @@
     <script src="../static/barrierClass.js"></script>
     <script src="../static/bucket.js"></script>
     <script src="../static/waterTowerClass.js"></script>
+    <script src="../static/graph.js"></script>
 </head>
 <body>
 <div class="align">
@@ -43,80 +44,55 @@
 <div class="content">
     <div class="input-param">
         <h2>Входные параметры</h2>
-        <form id="InputParams" action="/calculation" method="POST">
+        <form id="InputParams">
             <div class="input-group">
-                <label for="widthWall">Толщина стенок трубы:</label>
-                <input type="value" id="widthWall" name="widthWall" required value=10>
+                <label for="widthWall">Толщина стенок трубы:0,5-6мм</label>
+                <input type="value" id="widthWall" name="widthWall" required value="0.5">мм
             </div>
             <div class="input-group">
-                <label for="widthWaterTower">Ширина резервуара:</label>
-                <input type="value" id="widthWaterTower" name="widthWaterTower" required value="160">
+                <label for="heightWaterTower">Высота резервуара: 5-15м</label>
+                <input type="value" id="heightWaterTower" name="heightWaterTower" required value="5">м
             </div>
             <div class="input-group">
-                <label for="heightWaterTower">Высота резервуара:</label>
-                <input type="value" id="heightWaterTower" name="heightWaterTower" required value="500">
+                <label for="pipeLen">Длина трубы:10-50м</label>
+                <input type="value" id="pipeLen" name="pipeLen" required value="10">м
             </div>
             <div class="input-group">
-                <label for="pipeLen">Длина трубы:</label>
-                <input type="value" id="pipeLen" name="pipeLen" required value="785">
+                <label for="heightPipe">Диаметр трубы:10-25мм</label>
+                <input type="value" id="heightPipe" name="heightPipe" required value="10">мм
             </div>
             <div class="input-group">
-                <label for="heightPipe">Диаметр трубы:</label>
-                <input type="value" id="heightPipe" name="heightPipe" required value="80">
-            </div>
-            <div class="input-group">
-                <label for="widthBucket">Ширина сосуда:</label>
-                <input type="value" id="widthBucket" name="widthBucket" required value="80">
-            </div>
-            <div class="input-group">
-                <label for="heightBucket">Высота сосуда:</label>
-                <input type="value" id="heightBucket" name="heightBucket" required value="100">
-            </div>
-            <div class="input-group">
-                <label for="bucketWallWidth">Толщина стенок сосуда:</label>
-                <input type="value" id="bucketWallWidth" name="bucketWallWidth" value="5">
+                <label for="bucketWallWidth">Объем сосуда (W):10-50л</label>
+                <input type="value" id="bucketVolume" name="bucketVolume" required value="10">л
             </div>
             <label>Жидкость:</label>
-            <select name="liquid">
+            <select name="liquid" id="liquid">
                 <option value="---">---</option>
                 <option value="water">Вода</option>
                 <option value="oil">Минеральное масло</option>
             </select>
             <label>Материал трубы:</label>>
-            <select name="metal">
+            <select name="metal" id="metal">
                 <option value="---">---</option>
                 <option value="copper">Медь</option>
                 <option value="aluminium">Алюминий</option>
                 <option value="steel">Сталь</option>
             </select>
-            <div class="input-group">
-                <label for="defLiquidSpeed">Начальная скорость жидкости:</label>
-                <input type="value" id="defLiquidSpeed" name="defLiquidSpeed" value = 1>
-            </div>
-            <input type="submit" value="Вычислить">
         </form>
-        <button onclick="prepareScene()">Draw</button>
+        <button onclick="prepareScene()">Начать анимацию</button>
+        <button onclick="graph()">Построить граф</button>
     </div>
     <div class="middle-blocks">
-        <div class="model3d">
+        <div class="model2d">
+            <canvas id="canvas" width="1400" height="1100">
 
-            <canvas id="canvas" width="10001" height="10001">
+            </canvas>
+        </div>
+       <div class="graph">
+            <canvas id="canvas2" width="1400" height="250">
 
             </canvas>
         </div>
     </div>
-        <!-- <div class="graph">
-            <h2>Осциллографф</h2>
-            <canvas>
-
-            </canvas>
-        </div>
-    </div>-->
-    <div class="output-param">
-        <h2>Выходные параметры</h2>
-        <label>ΔP = {{ Part }}</label><br>
-        <label>ΔR = {{ absolute }}</label>
-    </div>
-
 </div>
 </body>

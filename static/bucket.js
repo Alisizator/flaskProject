@@ -22,7 +22,7 @@ class Bucket{
     {
         this.ctx.fillStyle = "black";
         this.ctx.fillRect(this.leftUpXPoint,this.leftUpYPoint,this.widthBucket,this.heightBucket);
-        this.ctx.fillStyle = "red";
+        this.ctx.fillStyle = "white";
         this.ctx.fillRect(this.startX,this.startY,this.widthBucket-this.bucketWallWidth*2,this.heightBucket-this.bucketWallWidth);
         this.ctx.fillStyle = "blue";
         this.ctx.fillRect(this.startX, this.startY + this.heightBucket - this.filledBucketHeight, this.widthBucket-this.bucketWallWidth*2, this.filledBucketHeight-this.bucketWallWidth);

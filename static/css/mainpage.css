@@ -111,7 +111,7 @@ h2 {
 }
 
 .input-param {
-    width: 10%;
+    width: 15%;
     background-color: #f2f2f2;
 }
 
@@ -121,14 +121,18 @@ h2 {
     flex-direction: column;
 }
 
-.model3d {
-    height: 50%;
-    background-color: #e6e6e6;
+.model2d {
+    height: 1000px;
+    background-color: white;
+    border: 1px solid black;
+    width: 1500px;
 }
 
 .graph {
     height: 50%;
-    background-color: #d9d9d9;
+    background-color: white;
+    border: 1px solid black;
+    width: 1500px;
 }
 
 .output-param {
