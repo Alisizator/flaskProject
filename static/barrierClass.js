@@ -7,7 +7,7 @@ class Barrier {
         this.width = width;
         this.height = height;
         this.speedOnXAxis = 0;
-        this.speedOnYAxis = 1;
+        this.speedOnYAxis = 0.5;
         this.ctx = ctx;
         this.position = 0;
     }

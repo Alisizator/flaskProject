@@ -3,7 +3,10 @@
     margin: 0;
     padding: 0;
 }
+.input
+{
 
+}
 body {
     font-family: Arial, sans-serif;
     background-color: white;
@@ -60,6 +63,7 @@ hr{
     margin-right: 0;
 }
 .sidebar button {
+    margin-top: 10px;
     color: black;
     text-decoration: none;
     font-weight: bold;
@@ -101,7 +105,7 @@ h2 {
 }
 
 .content {
-    height: 100vh;
+    height: 700px;
     display: flex;
     flex-direction: row;
     font-size: 16px;
@@ -109,33 +113,120 @@ h2 {
     text-align: center;
     gap: 5px;
 }
-
-.input-param {
-    width: 15%;
-    background-color: #f2f2f2;
+input
+{
+    width: 50px;
+    align:center;
 }
 
+.input-param-my {
+    width: 15%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-align: center;
+    font-weight: bold;
+    height: 700px;
+}
+.input-group-my
+{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    margin: 9px;
+    border-width: 2px 0;
+    border-style: solid none;
+    border-color: #FDBE33 #000 #D77206;
+    border-radius: 20px;
+    padding-bottom: 10px;
+    font-size: 21px;
+}
+#canvas1 {
+  position: absolute;
+  top: 100px;
+  left: 300px;
+}
+
+.InputParams
+{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 700px;
+}
+.InputParamsRight
+{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+}
 .middle-blocks {
-    width: 80%;
+    width: 70%;
     display: flex;
     flex-direction: column;
 }
+.graph
+{
+    width: 100%;
+}
+input[type="value"]
+{
+    text-align: center;
+    width: 30%;
+}
+button[class="send"]
+{
+
+    margin: 5px;
+    width: 90%;
+    align-items: center;
+    color: black;
+    text-decoration: none;
+    padding: .5em 2em;
+    outline: none;
+    border-width: 2px 0;
+    border-style: solid none;
+    border-color: #FDBE33 #000 #D77206;
+    border-radius: 6px;
+    background: linear-gradient(#F3AE0F, #E38916) #E38916;
+    transition: 0.2s;
+    position: relative;
+    font-weight: bold;
+    font-size: 21px;
+}
+button[class="send"]:hover {
+    background: linear-gradient(#f5ae00, #f59500) #f5ae00;
+    color: white;
+    cursor: grab;
+}
 
 .model2d {
-    height: 1000px;
+    height: 100%;
     background-color: white;
     border: 1px solid black;
-    width: 1500px;
+    width: 100%;
 }
 
 .graph {
-    height: 50%;
     background-color: white;
     border: 1px solid black;
-    width: 1500px;
 }
 
-.output-param {
-    width: 10%;
-    background-color: #cccccc;
+.my-block
+{
+    font-size:25px;
+    border-width: 2px 0;
+    border-style: solid none;
+    border-color: #FDBE33 #000 #D77206;
+    border-radius: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+
 }

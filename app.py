@@ -134,8 +134,9 @@ def update_profile():
             return render_template("profile.html", user=user)
     if user.full_name != request.form['full_name']:
         user.full_name = request.form['full_name']
-    if user.group_code != request.form['group_code']:
-        user.group_code = request.form['group_code']
+    if user.role == "student":
+        if user.group_code != request.form['group_code']:
+            user.group_code = request.form['group_code']
     if len(request.form['password']) > 0:
         if request.form['password'] == request.form['confirm_password']:
             hashed_password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')

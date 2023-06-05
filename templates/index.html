@@ -26,10 +26,6 @@
         {% endif %}
     {% endwith %}
 </div>
-<div class="logo">
-    <img src="/static/logo.jpg" alt="Ошибка загрузки">
-</div>
-<hr>
     <nav class="sidebar">
         <ul class="sidebar">
             <li><button type="button" onclick="window.location.href='/'">Главная страница</button></li>
@@ -42,57 +38,68 @@
     </nav>
 <hr>
 <div class="content">
-    <div class="input-param">
-        <h2>Входные параметры</h2>
+    <div class="input-param-my">
+        <h2 class="my-block">Входные параметры</h2>
         <form id="InputParams">
-            <div class="input-group">
-                <label for="widthWall">Толщина стенок трубы:0,5-6мм</label>
-                <input type="value" id="widthWall" name="widthWall" required value="0.5">мм
+            <div class="input-group-my">
+                <label for="widthWall">Толщина стенок трубубопровода (δ):<br>0,5 - 6 мм</label>
+                <input type="value" id="widthWall" name="widthWall" required value="0.5">
             </div>
-            <div class="input-group">
-                <label for="heightWaterTower">Высота резервуара: 5-15м</label>
-                <input type="value" id="heightWaterTower" name="heightWaterTower" required value="5">м
-            </div>
-            <div class="input-group">
-                <label for="pipeLen">Длина трубы:10-50м</label>
-                <input type="value" id="pipeLen" name="pipeLen" required value="10">м
-            </div>
-            <div class="input-group">
-                <label for="heightPipe">Диаметр трубы:10-25мм</label>
-                <input type="value" id="heightPipe" name="heightPipe" required value="10">мм
-            </div>
-            <div class="input-group">
-                <label for="bucketWallWidth">Объем сосуда (W):10-50л</label>
-                <input type="value" id="bucketVolume" name="bucketVolume" required value="10">л
-            </div>
-            <label>Жидкость:</label>
-            <select name="liquid" id="liquid">
-                <option value="---">---</option>
-                <option value="water">Вода</option>
-                <option value="oil">Минеральное масло</option>
-            </select>
-            <label>Материал трубы:</label>>
-            <select name="metal" id="metal">
-                <option value="---">---</option>
-                <option value="copper">Медь</option>
-                <option value="aluminium">Алюминий</option>
-                <option value="steel">Сталь</option>
-            </select>
         </form>
-        <button onclick="prepareScene()">Начать анимацию</button>
-        <button onclick="graph()">Построить граф</button>
+        <button class="send" onclick="prepareScene()">Визуализировать</button>
+        <button class="send" onclick="graph()">Построить график</button>
+        <br>
+        <h2 class="my-block">Выходные параметры</h2>
+        <div class="input-group-my">
+            <label id="my-label">Время заполнения <br> сосуда: t (c)</label>
+            <input id="myInput" readonly>
+
+        </div>
     </div>
     <div class="middle-blocks">
         <div class="model2d">
-            <canvas id="canvas" width="1400" height="1100">
-
-            </canvas>
-        </div>
-       <div class="graph">
-            <canvas id="canvas2" width="1400" height="250">
-
-            </canvas>
+            <canvas id="canvas" width="1100" height="700"></canvas>
         </div>
     </div>
+    <form id="InputParamsRight">
+            <div class="input-group-my">
+                <label for="heightWaterTower">Высота резервуара (h):<br> 5 - 15 м</label>
+                <input type="value" id="heightWaterTower" name="heightWaterTower" required value="5">
+            </div>
+            <div class="input-group-my">
+                <label for="pipeLen">Длина трубопровода (L): <br>10 - 50 м</label>
+                <input type="value" id="pipeLen" name="pipeLen" required value="10">
+            </div>
+            <div class="input-group-my">
+                <label for="heightPipe">Диаметр трубопровода (D):<br> 10 - 25 мм</label>
+                <input type="value" id="heightPipe" name="heightPipe" required value="10">
+            </div>
+            <div class="input-group-my">
+                <label for="bucketVolume">Объем сосуда (W):<br> 10 - 50 л</label>
+                <input type="value" id="bucketVolume" name="bucketVolume" required value="10">
+            </div>
+            <div class="input-group-my">
+                <label>Жидкость:</label>
+                    <select name="liquid" id="liquid">
+
+                        <option value="water">Вода</option>
+                        <option value="oil">Минеральное масло</option>
+                </select>
+            </div>
+            <div class="input-group-my">
+            <label>Материал трубы:</label>
+            <select name="metal" id="metal">
+
+                    <option value="copper">Медь</option>
+                    <option value="aluminium">Алюминий</option>
+                    <option value="steel">Сталь</option>
+            </select>
+            </div>
+        </form>
 </div>
+<div class="graph">
+            <canvas id="canvas2" width="1900" height="600">
+
+            </canvas>
+        </div>
 </body>

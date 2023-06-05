@@ -1,5 +1,5 @@
 class Bucket{
-    constructor(ctx,startX,startY,widthBucket,heightBucket,bucketWallWidth)
+    constructor(ctx,startX,startY,widthBucket,heightBucket,bucketWallWidth,colorLiquid)
     {        
         this.startX = startX;
         this.startY = startY;
@@ -7,6 +7,7 @@ class Bucket{
         this.heightBucket = heightBucket;
         this.bucketWallWidth = bucketWallWidth;
         this.ctx = ctx;
+        this.colorLiquid = colorLiquid;
 
         this.leftUpXPoint = this.startX-this.bucketWallWidth;
         this.leftUpYPoint = this.startY;
@@ -24,7 +25,7 @@ class Bucket{
         this.ctx.fillRect(this.leftUpXPoint,this.leftUpYPoint,this.widthBucket,this.heightBucket);
         this.ctx.fillStyle = "white";
         this.ctx.fillRect(this.startX,this.startY,this.widthBucket-this.bucketWallWidth*2,this.heightBucket-this.bucketWallWidth);
-        this.ctx.fillStyle = "blue";
+        this.ctx.fillStyle = this.colorLiquid;
         this.ctx.fillRect(this.startX, this.startY + this.heightBucket - this.filledBucketHeight, this.widthBucket-this.bucketWallWidth*2, this.filledBucketHeight-this.bucketWallWidth);
     }
 }

@@ -78,7 +78,7 @@ input {
 }
 
 button[type="submit"] {
-    padding-top: 10px;
+    padding-top: 20px;
     font-weight: bold;
     font-size: 18px;
     display: inline-block;
@@ -105,4 +105,9 @@ button[type="submit"]:hover {
     background: linear-gradient(#f5ae00, #f59500) #f5ae00;
     color: black;
     cursor: grab;
+}
+
+button[class="btn btn-primary"]
+{
+    margin-top:10px;
 }
