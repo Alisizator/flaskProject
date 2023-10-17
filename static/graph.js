@@ -16,13 +16,53 @@ function graph() {
     const metal = document.getElementById('metal');
     let density = 0;
     let elastic_modulus_of_liquid = 0;
-    if (liquid.value === 'water') {
+        if (liquid.value === 'water') {
         density = 1000;
         elastic_modulus_of_liquid = 2000;
         colorLiquid = "#8ebae8";
     } else if (liquid.value === 'oil') {
         density = 875;
         elastic_modulus_of_liquid = 1450;
+        colorLiquid = "#ffff81";
+    } else if (liquid.value === 'amg-10') {
+        density = 850;
+        elastic_modulus_of_liquid = 1330;
+        colorLiquid = "#ffff81";
+    } else if (liquid.value === 'cylindrical') {
+        density = 900;
+        elastic_modulus_of_liquid = 1850;
+        colorLiquid = "#ffff81";
+    } else if (liquid.value === 'industrial_I50A') {
+        density = 890;
+        elastic_modulus_of_liquid = 1500;
+        colorLiquid = "#ffff81";
+    } else if (liquid.value === 'industrial_I20A') {
+        density = 890;
+        elastic_modulus_of_liquid = 1400;
+        colorLiquid = "#ffff81";
+    } else if (liquid.value === 'turbine') {
+        density = 900;
+        elastic_modulus_of_liquid = 1750;
+        colorLiquid = "#ffff81";
+    } else if (liquid.value === 'kerosene') {
+        density = 815;
+        elastic_modulus_of_liquid = 1350;
+        colorLiquid = "#ffff81";
+    } else if (liquid.value === 'silicone_liquid') {
+        density = 1;
+        elastic_modulus_of_liquid = 1050;
+        colorLiquid = "#ffff81";
+    } else if (liquid.value === 'glycerin') {
+        density = 1260;
+        elastic_modulus_of_liquid = 4300;
+        colorLiquid = "#ffff81";
+    } else if (liquid.value === 'mercury') {
+        density = 13540;
+        elastic_modulus_of_liquid = 2500;
+        colorLiquid = "#ffff81";
+    } else if (liquid.value === 'water_distilled') {
+        density = 998;
+        elastic_modulus_of_liquid = 2100;
         colorLiquid = "#ffff81";
     }
     let pressure = (heightWaterTower * density * 9.8)/100000; //P0 в барах
