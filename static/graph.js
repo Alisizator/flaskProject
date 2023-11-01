@@ -1,3 +1,33 @@
+function draw_Vertical_Lines(ctx, k, yAxis, xAxis, param) {
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = "black";  // Set text color
+  ctx.font = "10px Times New Roman";
+  ctx.textAlign = "center";
+
+  for (let i = 0; i <= xAxis; i += param) {
+    ctx.moveTo(i * k, 0);
+    ctx.lineTo(i * k, k * yAxis);
+
+    // Label the line with its x-coordinate value
+    ctx.fillText(i.toString(), i * k, k * (yAxis - 1));  // Adjusted vertical position
+  }
+
+  ctx.stroke();
+}
+
+function draw_Horizontal_Lines(ctx, k, yAxis, xAxis, Increment) {
+        ctx.beginPath();
+        ctx.strokeStyle = "black";
+        for (let i = 0; i < yAxis; i = i + Increment) {
+            ctx.moveTo(0, i * k);
+            ctx.lineTo(k * xAxis, i * k);
+        }
+        for (let i = 0; i > -yAxis; i = i - Increment) {
+            ctx.moveTo(0, k * i);
+            ctx.lineTo(k * xAxis, k * i);
+        }
+        ctx.stroke();
+    }
 function graph() {
     const canvas = document.getElementById("canvas2");
     const ctx = canvas.getContext("2d");
@@ -92,48 +122,14 @@ function graph() {
         param = 150;
 ////////////////////////////////////////////////
     // Получаем ширину и высоту холста
+    let k = 0.7;
+    const xAxis = canvas.width+canvas.width*k;
+    const yAxis = canvas.height+canvas.height*k;
 
-    const xAxis = canvas.width;
-    const yAxis = canvas.height;
-
-
-    // Горизонтальные
-    ctx.beginPath();
-    ctx.strokeStyle = "black";
-    for(let i = 0;i < xAxis;i = i + param)
-    {
-        ctx.moveTo(i, 0);
-        ctx.lineTo(i,yAxis);
-    }
-    ctx.stroke();
-
-    ctx.translate(0, yAxis / 2);
-    ctx.beginPath();
-    ctx.strokeStyle = "black";
-    for(let i = 0;i < yAxis;i = i + Increment)
-    {
-        ctx.moveTo(0, i);
-        ctx.lineTo(xAxis,i);
-    }
-    for(let i = 0;i > -yAxis;i = i - Increment)
-    {
-        ctx.moveTo(0, i);
-        ctx.lineTo(xAxis,i);
-    }
-    ctx.stroke();
-
-    // Рисуем координатные оси
-    ctx.beginPath();
-    ctx.moveTo(-xAxis, 0);
-    ctx.lineTo(xAxis, 0);
-    ctx.stroke();
-    ctx.closePath();
-
-    ctx.beginPath();
-    ctx.moveTo(0, -yAxis);
-    ctx.lineTo(0, yAxis);
-    ctx.stroke();
-    ctx.closePath();
+    draw_Vertical_Lines(ctx, k, yAxis, xAxis, param);
+    //Перенос центра
+    ctx.translate(0, yAxis*k / 2);
+    draw_Horizontal_Lines(ctx, k, yAxis, xAxis, Increment);
 
     ctx.font = "30px Times New Roman";
     ctx.textAlign = "left";
@@ -143,15 +139,15 @@ function graph() {
         ctx.beginPath();
         ctx.strokeStyle = "red";
         ctx.lineWidth = 2;
-        ctx.moveTo(param*step,0);
-        ctx.lineTo(param*(0.05+step),-(Increment-(Increment*step/12)-pressure)*1.1);
-        ctx.lineTo(param*(0.1+step),-(Increment-(Increment*step/12)-pressure));
-        ctx.lineTo(param*(0.45+step), -(Increment-(Increment*step/12)-pressure));
-        ctx.lineTo(param*(0.5+step), 0);
-        ctx.lineTo(param*(0.55+step),(Increment-(Increment*step/12)-pressure)*1.1);
-        ctx.lineTo(param*(0.6+step),(Increment-(Increment*step/12)-pressure));
-        ctx.lineTo(param*(0.95+step),(Increment-(Increment*step/12)-pressure));
-        ctx.lineTo(param*(1+step),0);
+        ctx.moveTo(k*param*step,0);
+        ctx.lineTo(k*param*(0.05+step),k*-(Increment-(Increment*step/12)-pressure)*1.1);
+        ctx.lineTo(k*param*(0.1+step),k*-(Increment-(Increment*step/12)-pressure));
+        ctx.lineTo(k*param*(0.45+step), k*-(Increment-(Increment*step/12)-pressure));
+        ctx.lineTo(k*param*(0.5+step), k*0);
+        ctx.lineTo(k*param*(0.55+step),k*(Increment-(Increment*step/12)-pressure)*1.1);
+        ctx.lineTo(k*param*(0.6+step),k*(Increment-(Increment*step/12)-pressure));
+        ctx.lineTo(k*param*(0.95+step),k*(Increment-(Increment*step/12)-pressure));
+        ctx.lineTo(k*param*(1+step),0);
         ctx.stroke();
     }
 
