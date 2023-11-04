@@ -1,158 +1,125 @@
-function draw_Vertical_Lines(ctx, k, yAxis, xAxis, param) {
-  ctx.strokeStyle = "black";
-  ctx.fillStyle = "black";  // Set text color
-  ctx.font = "10px Times New Roman";
-  ctx.textAlign = "center";
+class DrawMainPage {
 
-  for (let i = 0; i <= xAxis; i += param) {
-    ctx.moveTo(i * k, 0);
-    ctx.lineTo(i * k, k * yAxis);
+    constructor(ctx, canvas, k) {
+        this.ctx = ctx;
+        this.canvas = canvas;
+        this.k = k;
+        this.xAxis = this.canvas.width + this.canvas.width * this.k;
+        this.yAxis = this.canvas.height + this.canvas.height * this.k;
+      }
 
-    // Label the line with its x-coordinate value
-    ctx.fillText(i.toString(), i * k, k * (yAxis - 1));  // Adjusted vertical position
-  }
+    draw_Vertical_Lines() {
+        this.ctx.strokeStyle = "black";
+        this.ctx.fillStyle = "black";  // Set text color
+        this.ctx.font = "10px Times New Roman";
+        this.ctx.textAlign = "center";
+        
+        this.ctx.beginPath();
+        for (let i = 0; i <= this.xAxis; i += this.param) {
+          this.ctx.moveTo(i * this.k, 0);
+          this.ctx.lineTo(i * this.k, this.k * this.yAxis);
+      
+          // Label the line with its x-coordinate value
+          this.ctx.fillText(i.toString(), i * this.k, this.k * (this.yAxis - 1));  // Adjusted vertical position
+        }
+      
+        this.ctx.stroke();
+    }
+      
+    draw_Horizontal_Lines() {
+        this.ctx.strokeStyle = "black";
+        
+        this.ctx.beginPath();
+        for (let i = 0; i < this.yAxis; i = i + this.increment) {
+            this.ctx.moveTo(0, i * this.k);
+            this.ctx.lineTo(this.k * this.xAxis, i * this.k);
+        }
+        for (let i = 0; i > - this.yAxis; i = i - this.increment) {
+            this.ctx.moveTo(0, this.k * i);
+            this.ctx.lineTo(this.k * this.xAxis, this.k * i);
+        }
+        this.ctx.stroke();
+    }
+      
+    drawVisualRepresentation() 
+    {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.lineWidth = 1;
+        let widthWall = parseFloat(document.getElementById("widthWall").value);//толщина стенок, 0,5-6мм
+        let heightWaterTower = parseFloat(document.getElementById("heightWaterTower").value); //высота башни 5-15м
+        let pipeLen = parseFloat(document.getElementById("pipeLen").value);//длина трубы
+        if (pipeLen > 11 && pipeLen<23)
+            pipeLen = 10;
+        let heightPipe = parseFloat(document.getElementById("heightPipe").value); //диаметр трубы
+        
+        const liquidElement = document.getElementById('liquid');
+        const liquidProperties = new LiquidProperties();
+        console.log(liquidProperties.liquidData[liquidElement.value]);
+        const liquid = liquidProperties.getProperties(liquidElement.value);
+        console.log(liquid);
+        
+        this.pressure = (heightWaterTower * liquid.density * 9.8)/100000; //P0 в барах
 
-  ctx.stroke();
+        const metalElement = document.getElementById('metal');
+        const metalProperties = new MetalProperties();
+        const metal = metalProperties.getProperties(metalElement.value);
+
+
+        let waterSpeed = Math.sqrt(2 * 9.806 * heightWaterTower);
+
+        let a = (1 / (Math.sqrt(liquid.density * ((heightPipe / (metal.elasticModulus * widthWall)) + (1 / liquid.elasticModulus))))) * 1000; //speed
+
+        this.increment = (liquid.density * waterSpeed * a) / 100000; //delta P в барах
+        this.param = 4000*((4 * pipeLen) / a);
+        if (this.param > 300) {
+            this.param = 150;
+        }
+    } 
+      
+    drawGraph() {    
+        this.draw_Vertical_Lines();
+        //Перенос центра
+        this.ctx.translate(0, this.yAxis * this.k / 2);
+        this.draw_Horizontal_Lines();
+    
+        this.ctx.font = "30px Times New Roman";
+        this.ctx.textAlign = "left";
+        this.ctx.fillText("t (c)", 0, 25);
+        this.ctx.closePath();
+        for (let step = 0; step < 12; step++) {
+            this.ctx.beginPath();
+            this.ctx.strokeStyle = "red";
+            this.ctx.lineWidth = 2;
+            
+            this.ctx.moveTo(this.k * this.param * step, 0);
+            
+            this.ctx.lineTo(this.k * this.param * (0.05 + step), this.k * -(this.increment - (this.increment * step / 12) - this.pressure) * 1.1);
+
+            this.ctx.lineTo(this.k * this.param * (0.1 + step), this.k * -(this.increment - (this.increment * step / 12) - this.pressure));
+            this.ctx.lineTo(this.k * this.param * (0.45 + step), this.k * -(this.increment - (this.increment * step / 12) - this.pressure));
+            this.ctx.lineTo(this.k * this.param * (0.5+step), 0);
+            
+            this.ctx.lineTo(this.k * this.param * (0.55+step), this.k * (this.increment - (this.increment * step / 12) - this.pressure) * 1.1);
+
+            this.ctx.lineTo(this.k * this.param * (0.6 + step), this.k * (this.increment-(this.increment * step / 12) - this.pressure));
+            this.ctx.lineTo(this.k * this.param * (0.95 + step), this.k * (this.increment-(this.increment * step / 12) - this.pressure));
+            this.ctx.lineTo(this.k * this.param * (1 + step), 0);
+            this.ctx.stroke();
+        }
+    
+        this.ctx.font = "30px Times New Roman";
+        this.ctx.textAlign = "left";
+        this.ctx.fillText("ΔP (бар)", 0, - this.increment - 15);
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    }
 }
 
-function draw_Horizontal_Lines(ctx, k, yAxis, xAxis, Increment) {
-        ctx.beginPath();
-        ctx.strokeStyle = "black";
-        for (let i = 0; i < yAxis; i = i + Increment) {
-            ctx.moveTo(0, i * k);
-            ctx.lineTo(k * xAxis, i * k);
-        }
-        for (let i = 0; i > -yAxis; i = i - Increment) {
-            ctx.moveTo(0, k * i);
-            ctx.lineTo(k * xAxis, k * i);
-        }
-        ctx.stroke();
-    }
+
 function graph() {
     const canvas = document.getElementById("canvas2");
     const ctx = canvas.getContext("2d");
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.lineWidth = 1;
-    let widthWall = parseFloat(document.getElementById("widthWall").value);//толщина стенок, 0,5-6мм
-    let widthWaterTower = 10;
-    let heightWaterTower = parseFloat(document.getElementById("heightWaterTower").value); //высота башни 5-15м
-    let pipeLen = parseFloat(document.getElementById("pipeLen").value);//длина трубы
-    if (pipeLen > 11 && pipeLen<23)
-        pipeLen = 10;
-    let heightPipe = parseFloat(document.getElementById("heightPipe").value); //диаметр трубы
-    let bucketVolume = parseFloat(document.getElementById("bucketVolume").value); //Объем ведра трубы
-    let colorLiquid;
-    const liquid = document.getElementById('liquid');
-    const metal = document.getElementById('metal');
-    let density = 0;
-    let elastic_modulus_of_liquid = 0;
-        if (liquid.value === 'water') {
-        density = 1000;
-        elastic_modulus_of_liquid = 2000;
-        colorLiquid = "#8ebae8";
-    } else if (liquid.value === 'oil') {
-        density = 875;
-        elastic_modulus_of_liquid = 1450;
-        colorLiquid = "#ffff81";
-    } else if (liquid.value === 'amg-10') {
-        density = 850;
-        elastic_modulus_of_liquid = 1330;
-        colorLiquid = "#ffff81";
-    } else if (liquid.value === 'cylindrical') {
-        density = 900;
-        elastic_modulus_of_liquid = 1850;
-        colorLiquid = "#ffff81";
-    } else if (liquid.value === 'industrial_I50A') {
-        density = 890;
-        elastic_modulus_of_liquid = 1500;
-        colorLiquid = "#ffff81";
-    } else if (liquid.value === 'industrial_I20A') {
-        density = 890;
-        elastic_modulus_of_liquid = 1400;
-        colorLiquid = "#ffff81";
-    } else if (liquid.value === 'turbine') {
-        density = 900;
-        elastic_modulus_of_liquid = 1750;
-        colorLiquid = "#ffff81";
-    } else if (liquid.value === 'kerosene') {
-        density = 815;
-        elastic_modulus_of_liquid = 1350;
-        colorLiquid = "#ffff81";
-    } else if (liquid.value === 'silicone_liquid') {
-        density = 1;
-        elastic_modulus_of_liquid = 1050;
-        colorLiquid = "#ffff81";
-    } else if (liquid.value === 'glycerin') {
-        density = 1260;
-        elastic_modulus_of_liquid = 4300;
-        colorLiquid = "#ffff81";
-    } else if (liquid.value === 'mercury') {
-        density = 13540;
-        elastic_modulus_of_liquid = 2500;
-        colorLiquid = "#ffff81";
-    } else if (liquid.value === 'water_distilled') {
-        density = 998;
-        elastic_modulus_of_liquid = 2100;
-        colorLiquid = "#ffff81";
-    }
-    let pressure = (heightWaterTower * density * 9.8)/100000; //P0 в барах
-    let elastic_modulus_of_metal = 0;
-    let colorMetal;
-    if (metal.value === 'copper') {
-        elastic_modulus_of_metal = 100000;
-        colorMetal = "#b87333";
-    }
-    else if (metal.value === 'aluminium') {
-        elastic_modulus_of_metal = 70000;
-        colorMetal = "#a5a5a5";
-    }
-    else if (metal.value === 'steel') {
-        elastic_modulus_of_metal = 200000;
-        colorMetal = "#738595";
-    }
-
-    let waterSpeed = Math.sqrt(2 * 9.806 * heightWaterTower);
-    let flowSpeed = (waterSpeed * Math.PI * (heightPipe ** 2)) / 4000;
-    let bucketTimeOfFilling = bucketVolume / flowSpeed;
-
-    let a = (1 / (Math.sqrt(density * ((heightPipe / (elastic_modulus_of_metal * widthWall)) + (1 / elastic_modulus_of_liquid)))))*1000; //speed
-    let Increment = (density * waterSpeed * a)/100000; //delta P в барах
-    let param = 4000*((4*pipeLen)/a);
-    if (param > 300)
-        param = 150;
-////////////////////////////////////////////////
-    // Получаем ширину и высоту холста
-    let k = 0.7;
-    const xAxis = canvas.width+canvas.width*k;
-    const yAxis = canvas.height+canvas.height*k;
-
-    draw_Vertical_Lines(ctx, k, yAxis, xAxis, param);
-    //Перенос центра
-    ctx.translate(0, yAxis*k / 2);
-    draw_Horizontal_Lines(ctx, k, yAxis, xAxis, Increment);
-
-    ctx.font = "30px Times New Roman";
-    ctx.textAlign = "left";
-    ctx.fillText("t (c)",0,25);
-    ctx.closePath();
-    for (let step = 0;step < 12;step++){
-        ctx.beginPath();
-        ctx.strokeStyle = "red";
-        ctx.lineWidth = 2;
-        ctx.moveTo(k*param*step,0);
-        ctx.lineTo(k*param*(0.05+step),k*-(Increment-(Increment*step/12)-pressure)*1.1);
-        ctx.lineTo(k*param*(0.1+step),k*-(Increment-(Increment*step/12)-pressure));
-        ctx.lineTo(k*param*(0.45+step), k*-(Increment-(Increment*step/12)-pressure));
-        ctx.lineTo(k*param*(0.5+step), k*0);
-        ctx.lineTo(k*param*(0.55+step),k*(Increment-(Increment*step/12)-pressure)*1.1);
-        ctx.lineTo(k*param*(0.6+step),k*(Increment-(Increment*step/12)-pressure));
-        ctx.lineTo(k*param*(0.95+step),k*(Increment-(Increment*step/12)-pressure));
-        ctx.lineTo(k*param*(1+step),0);
-        ctx.stroke();
-    }
-
-    ctx.font = "30px Times New Roman";
-    ctx.textAlign = "left";
-    ctx.fillText("ΔP (бар)",0,-Increment-15);
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    let k = 0.8;
+    let dmp = new DrawMainPage(ctx, canvas, k);
+    dmp.drawVisualRepresentation();
+    dmp.drawGraph();
 }

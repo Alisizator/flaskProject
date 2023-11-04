@@ -139,7 +139,7 @@ function drawGraphOnce() {
     } else if (liquid.value === 'oil') {
         density = 875;
         elastic_modulus_of_liquid = 1450;
-    } else if (liquid.value === 'amg-10') {
+    } else if (liquid.value === 'amg_10') {
         density = 850;
         elastic_modulus_of_liquid = 1330;
     } else if (liquid.value === 'cylindrical') {
@@ -222,7 +222,7 @@ function drawGraphTwice() {
     } else if (liquid.value === 'oil') {
         density = 875;
         elastic_modulus_of_liquid = 1450;
-    } else if (liquid.value === 'amg-10') {
+    } else if (liquid.value === 'amg_10') {
         density = 850;
         elastic_modulus_of_liquid = 1330;
     } else if (liquid.value === 'cylindrical') {
@@ -307,7 +307,7 @@ function drawGraphThird() {
     } else if (liquid.value === 'oil') {
         density = 875;
         elastic_modulus_of_liquid = 1450;
-    } else if (liquid.value === 'amg-10') {
+    } else if (liquid.value === 'amg_10') {
         density = 850;
         elastic_modulus_of_liquid = 1330;
     } else if (liquid.value === 'cylindrical') {
@@ -394,7 +394,7 @@ function drawGraphQuad() {
     } else if (liquid.value === 'oil') {
         density = 875;
         elastic_modulus_of_liquid = 1450;
-    } else if (liquid.value === 'amg-10') {
+    } else if (liquid.value === 'amg_10') {
         density = 850;
         elastic_modulus_of_liquid = 1330;
     } else if (liquid.value === 'cylindrical') {
@@ -507,7 +507,7 @@ function prepareScene()
         density = 875;
         elastic_modulus_of_liquid = 1450;
         colorLiquid = "#ffff81";
-    } else if (liquid.value === 'amg-10') {
+    } else if (liquid.value === 'amg_10') {
         density = 850;
         elastic_modulus_of_liquid = 1330;
         colorLiquid = "#ffff81";
