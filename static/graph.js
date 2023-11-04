@@ -1,14 +1,14 @@
 class DrawMainPage {
 
-    constructor(ctx, canvas, k) {
+    constructor(ctx, canvas, scaleFactor) {
         this.ctx = ctx;
         this.canvas = canvas;
-        this.k = k;
-        this.xAxis = this.canvas.width + this.canvas.width * this.k;
-        this.yAxis = this.canvas.height + this.canvas.height * this.k;
+        this.scaleFactor = scaleFactor;
+        this.xAxis = (this.canvas.width + this.canvas.width) * this.scaleFactor;
+        this.yAxis = (this.canvas.height + this.canvas.height) * this.scaleFactor;
       }
 
-    draw_Vertical_Lines() {
+      drawVerticalLines() {
         this.ctx.strokeStyle = "black";
         this.ctx.fillStyle = "black";  // Set text color
         this.ctx.font = "10px Times New Roman";
@@ -16,50 +16,58 @@ class DrawMainPage {
         
         this.ctx.beginPath();
         for (let i = 0; i <= this.xAxis; i += this.param) {
-          this.ctx.moveTo(i * this.k, 0);
-          this.ctx.lineTo(i * this.k, this.k * this.yAxis);
-      
-          // Label the line with its x-coordinate value
-          this.ctx.fillText(i.toString(), i * this.k, this.k * (this.yAxis - 1));  // Adjusted vertical position
+            let roundedValue = (i * this.scaleFactor).toFixed(2); // Round to two decimal places
+    
+            this.ctx.moveTo(roundedValue, 0);
+            this.ctx.lineTo(roundedValue, this.yAxis * this.scaleFactor);
+            this.ctx.fillText(roundedValue, roundedValue, 730 * this.scaleFactor * this.scaleFactor); // Use the rounded value for text
         }
-      
-        this.ctx.stroke();
+        this.ctx.stroke(); // Moved outside the for loop to only call stroke once
     }
+
+    drawXAxis(lineWidth) {
+        let lineWidthBefore = this.ctx.lineWidth; 
+        this.ctx.beginPath();
+        this.ctx.lineWidth = lineWidth
+        this.ctx.moveTo(0, 0);
+        this.ctx.lineTo(this.scaleFactor * this.xAxis, 0);
+        this.ctx.stroke();
+        this.ctx.lineWidth = lineWidthBefore;
+    }
+    
       
-    draw_Horizontal_Lines() {
+    drawHorizontalLines() {
         this.ctx.strokeStyle = "black";
         
+        this.drawXAxis(3)
+        
         this.ctx.beginPath();
-        for (let i = 0; i < this.yAxis; i = i + this.increment) {
-            this.ctx.moveTo(0, i * this.k);
-            this.ctx.lineTo(this.k * this.xAxis, i * this.k);
+        for (let i = 0; i < this.yAxis; i = i + this.deltaPValue) {
+            this.ctx.moveTo(0, i * this.scaleFactor);
+            this.ctx.lineTo(this.scaleFactor * this.xAxis, i * this.scaleFactor);
         }
-        for (let i = 0; i > - this.yAxis; i = i - this.increment) {
-            this.ctx.moveTo(0, this.k * i);
-            this.ctx.lineTo(this.k * this.xAxis, this.k * i);
+
+        for (let i = 0; i > - this.yAxis; i = i - this.deltaPValue) {
+            this.ctx.moveTo(0, this.scaleFactor * i);
+            this.ctx.lineTo(this.scaleFactor * this.xAxis, this.scaleFactor * i);
         }
+        
         this.ctx.stroke();
     }
       
     drawVisualRepresentation() 
     {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.lineWidth = 1;
-        let widthWall = parseFloat(document.getElementById("widthWall").value);//толщина стенок, 0,5-6мм
+        let widthWall = parseFloat(document.getElementById("widthWall").value); //толщина стенок, 0,5-6мм
         let heightWaterTower = parseFloat(document.getElementById("heightWaterTower").value); //высота башни 5-15м
-        let pipeLen = parseFloat(document.getElementById("pipeLen").value);//длина трубы
-        if (pipeLen > 11 && pipeLen<23)
+        let pipeLen = parseFloat(document.getElementById("pipeLen").value); //длина трубы
+        if (pipeLen > 11 && pipeLen < 23)
             pipeLen = 10;
         let heightPipe = parseFloat(document.getElementById("heightPipe").value); //диаметр трубы
         
         const liquidElement = document.getElementById('liquid');
         const liquidProperties = new LiquidProperties();
-        console.log(liquidProperties.liquidData[liquidElement.value]);
         const liquid = liquidProperties.getProperties(liquidElement.value);
-        console.log(liquid);
         
-        this.pressure = (heightWaterTower * liquid.density * 9.8)/100000; //P0 в барах
-
         const metalElement = document.getElementById('metal');
         const metalProperties = new MetalProperties();
         const metal = metalProperties.getProperties(metalElement.value);
@@ -69,57 +77,89 @@ class DrawMainPage {
 
         let a = (1 / (Math.sqrt(liquid.density * ((heightPipe / (metal.elasticModulus * widthWall)) + (1 / liquid.elasticModulus))))) * 1000; //speed
 
-        this.increment = (liquid.density * waterSpeed * a) / 100000; //delta P в барах
-        this.param = 4000*((4 * pipeLen) / a);
+        this.deltaPValue = (liquid.density * waterSpeed * a) / 100000; //delta P в барах
+        this.initialPressureValue = (heightWaterTower * liquid.density * 9.8) / 100000; //P0 в барах
+        this.param = 4000 * ((4 * pipeLen) / a);
         if (this.param > 300) {
             this.param = 150;
         }
     } 
       
-    drawGraph() {    
-        this.draw_Vertical_Lines();
+    drawGraph() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.lineWidth = 1;
+        this.drawVerticalLines();
         //Перенос центра
-        this.ctx.translate(0, this.yAxis * this.k / 2);
-        this.draw_Horizontal_Lines();
+        this.ctx.translate(0, this.yAxis * this.scaleFactor / 2);
+        this.drawHorizontalLines();
     
         this.ctx.font = "30px Times New Roman";
         this.ctx.textAlign = "left";
-        this.ctx.fillText("t (c)", 0, 25);
+        this.ctx.fillText("t (c)", 0, 125);
         this.ctx.closePath();
+
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = "red";
+        this.ctx.lineWidth = 2;
+
         for (let step = 0; step < 12; step++) {
-            this.ctx.beginPath();
-            this.ctx.strokeStyle = "red";
-            this.ctx.lineWidth = 2;
             
-            this.ctx.moveTo(this.k * this.param * step, 0);
+            this.ctx.moveTo(this.scaleFactor * this.param * step, 0);
+            console.log("93 moveTo x y");
+            console.log(this.scaleFactor * this.param * step, 0);
             
-            this.ctx.lineTo(this.k * this.param * (0.05 + step), this.k * -(this.increment - (this.increment * step / 12) - this.pressure) * 1.1);
+            this.ctx.lineTo(this.scaleFactor * this.param * (0.05 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue) * 1.1);
+            console.log("96 lineTo x y");
+            console.log(this.scaleFactor * this.param * (0.05 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue) * 1.1);
+            
+            this.ctx.lineTo(this.scaleFactor * this.param * (0.1 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue));
+            console.log("99 lineTo x y");       
+            console.log(this.scaleFactor * this.param * (0.1 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue));
+            
+            this.ctx.lineTo(this.scaleFactor * this.param * (0.45 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue));
+            console.log("102 lineTo x y");
+            console.log(this.scaleFactor * this.param * (0.45 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue));
+            
+            this.ctx.lineTo(this.scaleFactor * this.param * (0.5 + step), 0);
+            console.log("105 lineTo x y");
+            console.log(this.scaleFactor * this.param * (0.5 + step), 0);
+            
+            this.ctx.lineTo(this.scaleFactor * this.param * (0.55 + step), this.scaleFactor * (this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue) * 1.1);
+            console.log("109 lineTo x y");
+            console.log(this.scaleFactor * this.param * (0.55 + step), this.scaleFactor * (this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue) * 1.1);
 
-            this.ctx.lineTo(this.k * this.param * (0.1 + step), this.k * -(this.increment - (this.increment * step / 12) - this.pressure));
-            this.ctx.lineTo(this.k * this.param * (0.45 + step), this.k * -(this.increment - (this.increment * step / 12) - this.pressure));
-            this.ctx.lineTo(this.k * this.param * (0.5+step), 0);
+            this.ctx.lineTo(this.scaleFactor * this.param * (0.6 + step), this.scaleFactor * (this.deltaPValue-(this.deltaPValue * step / 12) - this.initialPressureValue));
+            console.log("113 lineTo x y");
+            console.log(this.scaleFactor * this.param * (0.6 + step), this.scaleFactor * (this.deltaPValue-(this.deltaPValue * step / 12) - this.initialPressureValue));
             
-            this.ctx.lineTo(this.k * this.param * (0.55+step), this.k * (this.increment - (this.increment * step / 12) - this.pressure) * 1.1);
-
-            this.ctx.lineTo(this.k * this.param * (0.6 + step), this.k * (this.increment-(this.increment * step / 12) - this.pressure));
-            this.ctx.lineTo(this.k * this.param * (0.95 + step), this.k * (this.increment-(this.increment * step / 12) - this.pressure));
-            this.ctx.lineTo(this.k * this.param * (1 + step), 0);
-            this.ctx.stroke();
+            this.ctx.lineTo(this.scaleFactor * this.param * (0.95 + step), this.scaleFactor * (this.deltaPValue-(this.deltaPValue * step / 12) - this.initialPressureValue));
+            console.log("116 lineTo x y");
+            console.log(this.scaleFactor * this.param * (0.95 + step), this.scaleFactor * (this.deltaPValue-(this.deltaPValue * step / 12) - this.initialPressureValue));
+            
+            this.ctx.lineTo(this.scaleFactor * this.param * (1 + step), 0);
+            console.log("120 lineTo x y");
+            console.log(this.scaleFactor * this.param * (1 + step), 0);
+            
         }
+
+        this.ctx.stroke();
     
         this.ctx.font = "30px Times New Roman";
         this.ctx.textAlign = "left";
-        this.ctx.fillText("ΔP (бар)", 0, - this.increment - 15);
+        this.ctx.fillText("ΔP (бар)", 0, - this.deltaPValue - 15);
         this.ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
 }
 
 
-function graph() {
+function drawGraphOfRelationTimeToDeltaP() {
     const canvas = document.getElementById("canvas2");
     const ctx = canvas.getContext("2d");
-    let k = 0.8;
-    let dmp = new DrawMainPage(ctx, canvas, k);
+    const sliderValue = document.getElementById('slider').value;
+
+    let scaleFactor = sliderValue;
+    let dmp = new DrawMainPage(ctx, canvas, scaleFactor);
+    
     dmp.drawVisualRepresentation();
     dmp.drawGraph();
 }
