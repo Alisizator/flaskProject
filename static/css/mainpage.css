@@ -151,6 +151,20 @@ input
   left: 300px;
 }
 
+.input-group-my-slider {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    margin: 9px;
+    border-width: 2px 0;
+    border-style: solid none;
+    border-color: #FDBE33 #000 #D77206;
+    border-radius: 20px;
+    padding-bottom: 10px;
+    font-size: 21px;
+}
+
 .InputParams
 {
     position: relative;
@@ -213,9 +227,22 @@ button[class="send"]:hover {
 }
 
 .graph {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* This will take the full height of the viewport */
     background-color: white;
     border: 1px solid black;
 }
+
+#canvas2 {
+    /* Add a specific size or keep it responsive as per your requirement */
+    width: 90vw; /* Example for responsive width */
+    height: 80vh; /* Example for responsive height */
+    border: 1px solid black;
+}
+
+
 
 .my-block
 {
