@@ -143,8 +143,8 @@ class DrawMainPage {
         //this.trueFlowSpeed = 55;//????????????????
 
         let a = (1 / (Math.sqrt(liquid.density * ((heightPipe / (metal.elasticModulus * widthWall)) + (1 / liquid.elasticModulus))))) * 1000; //speed
-        this.trueSpeed = (1 / (Math.sqrt((liquid.density*1000) * (((heightPipe/1000) / ((metal.elasticModulus*1000000) * (widthWall/1000))) + (1 / (liquid.elasticModulus*1000000)))))); //TrueSpeedValue
-
+        this.trueSpeed = (1 / (Math.sqrt((liquid.density) * (((heightPipe/1000) / ((metal.elasticModulus*1000000) * (widthWall/1000))) + (1 / (liquid.elasticModulus*1000000)))))); //TrueSpeedValue
+        console.log(liquid.density);
         this.deltaPValue = (liquid.density * waterSpeed * a) / 100000; //delta P в барах
         this.trueDeltaPValue = ((liquid.density*1000) * waterSpeed * this.trueSpeed) / 100000000; //deltaP, ГПа
 
