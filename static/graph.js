@@ -98,7 +98,10 @@ class DrawMainPage {
 
             // Assuming the left margin has enough space for labels
             // Draw text labels on y-axis with some padding (e.g., 10 pixels from the y-axis)
-            this.ctx.fillText((i/1000).toFixed(3), 80, yPos + 3); // Convert to bar (if i is in Pascals) and adjust position if needed
+            if(i == this.deltaPValue) {
+                //this.ctx.fillText((i / 1000).toFixed(3), 80, yPos + 10); // Convert to bar (if i is in Pascals) and adjust position if needed
+                this.ctx.fillText(-this.trueDeltaPValue.toFixed(3), 80, yPos + 10);
+            }
         }
 
         for (let i = 0; i > -this.yAxis; i -= this.deltaPValue) {
@@ -107,7 +110,10 @@ class DrawMainPage {
             this.ctx.lineTo(this.scaleFactor * this.xAxis, yPos);
 
             // Draw negative values on y-axis
-            this.ctx.fillText((i/1000).toFixed(3), 80, yPos + 3); // Convert to bar and adjust position
+            if(i == -this.deltaPValue) {
+                //this.ctx.fillText((-i/1000).toFixed(3), 80, yPos + 10); // Convert to bar and adjust position
+                this.ctx.fillText(this.trueDeltaPValue.toFixed(3), 80, yPos + 10);
+            }
         }
 
         this.ctx.stroke();
@@ -133,12 +139,24 @@ class DrawMainPage {
 
 
         let waterSpeed = Math.sqrt(2 * 9.806 * heightWaterTower);
+        //let trueFlowSpeed = Math.sqrt(2 * 9.806 * (heightWaterTower/1000));
+        this.trueFlowSpeed = 55;//????????????????
 
         let a = (1 / (Math.sqrt(liquid.density * ((heightPipe / (metal.elasticModulus * widthWall)) + (1 / liquid.elasticModulus))))) * 1000; //speed
+        this.trueSpeed = (1 / (Math.sqrt((liquid.density*1000) * (((heightPipe/1000) / ((metal.elasticModulus*1000000) * (widthWall/1000))) + (1 / (liquid.elasticModulus*1000000)))))); //TrueSpeedValue
 
         this.deltaPValue = (liquid.density * waterSpeed * a) / 100000; //delta P в барах
+        this.trueDeltaPValue = ((liquid.density*1000) * this.trueFlowSpeed * this.trueSpeed) / 100000000; //deltaP, ГПа
+
+        console.log(this.trueDeltaPValue);
+        console.log(this.trueFlowSpeed);
+        //console.log(waterSpeed);
+
         this.initialPressureValue = (heightWaterTower * liquid.density * 9.8) / 100000; //P0 в барах
+        this.trueInitialPressureValue = ((heightWaterTower/1000) * (liquid.density*1000) * 9.8) / 100000000; //P0, ГПа
+
         this.param = 4000 * ((4 * pipeLen) / a);
+        this.trueParam = ((4 * pipeLen) / this.trueSpeed);
         if (this.param > 300) {
             this.param = 150;
         }
@@ -154,7 +172,7 @@ class DrawMainPage {
 
         this.ctx.font = "30px Times New Roman";
         this.ctx.textAlign = "left";
-        this.ctx.fillText("t (c)", 0, 125);
+        this.ctx.fillText("t (c)", 0, 25);
         this.ctx.closePath();
 
         this.ctx.beginPath();
@@ -164,41 +182,41 @@ class DrawMainPage {
 
         for (let step = 0; step < 12; step++) {
 
-            this.ctx.moveTo(this.scaleFactor * this.param * step, 0);
-            console.log("93 moveTo x y");
-            console.log(this.scaleFactor * this.param * step, 0);
+            this.ctx.moveTo(this.scaleFactor * this.param * (step + 1), 0);
+            //console.log("93 moveTo x y");
+            ////console.log(this.scaleFactor * this.param * step, 0);
 
-            this.ctx.lineTo(this.scaleFactor * this.param * (0.05 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue) * 1.1);
-            console.log("96 lineTo x y");
-            console.log(this.scaleFactor * this.param * (0.05 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue) * 1.1);
+            this.ctx.lineTo(this.scaleFactor * this.param * (1.05 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue) * 1.1);
+            //console.log("96 lineTo x y");
+            //console.log(this.scaleFactor * this.param * (0.05 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue) * 1.1);
 
-            this.ctx.lineTo(this.scaleFactor * this.param * (0.1 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue));
-            console.log("99 lineTo x y");
-            console.log(this.scaleFactor * this.param * (0.1 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue));
+            this.ctx.lineTo(this.scaleFactor * this.param * (1.1 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue));
+            //console.log("99 lineTo x y");
+            //console.log(this.scaleFactor * this.param * (0.1 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue));
 
-            this.ctx.lineTo(this.scaleFactor * this.param * (0.45 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue));
-            console.log("102 lineTo x y");
-            console.log(this.scaleFactor * this.param * (0.45 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue));
+            this.ctx.lineTo(this.scaleFactor * this.param * (1.45 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue));
+            //console.log("102 lineTo x y");
+            //console.log(this.scaleFactor * this.param * (0.45 + step), this.scaleFactor * -(this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue));
 
-            this.ctx.lineTo(this.scaleFactor * this.param * (0.5 + step), 0);
-            console.log("105 lineTo x y");
-            console.log(this.scaleFactor * this.param * (0.5 + step), 0);
+            this.ctx.lineTo(this.scaleFactor * this.param * (1.5 + step), 0);
+            //console.log("105 lineTo x y");
+            //console.log(this.scaleFactor * this.param * (0.5 + step), 0);
 
-            this.ctx.lineTo(this.scaleFactor * this.param * (0.55 + step), this.scaleFactor * (this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue) * 1.1);
-            console.log("109 lineTo x y");
-            console.log(this.scaleFactor * this.param * (0.55 + step), this.scaleFactor * (this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue) * 1.1);
+            this.ctx.lineTo(this.scaleFactor * this.param * (1.55 + step), this.scaleFactor * (this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue) * 1.1);
+            //console.log("109 lineTo x y");
+            //console.log(this.scaleFactor * this.param * (0.55 + step), this.scaleFactor * (this.deltaPValue - (this.deltaPValue * step / 12) - this.initialPressureValue) * 1.1);
 
-            this.ctx.lineTo(this.scaleFactor * this.param * (0.6 + step), this.scaleFactor * (this.deltaPValue-(this.deltaPValue * step / 12) - this.initialPressureValue));
-            console.log("113 lineTo x y");
-            console.log(this.scaleFactor * this.param * (0.6 + step), this.scaleFactor * (this.deltaPValue-(this.deltaPValue * step / 12) - this.initialPressureValue));
+            this.ctx.lineTo(this.scaleFactor * this.param * (1.6 + step), this.scaleFactor * (this.deltaPValue-(this.deltaPValue * step / 12) - this.initialPressureValue));
+            //console.log("113 lineTo x y");
+            //console.log(this.scaleFactor * this.param * (0.6 + step), this.scaleFactor * (this.deltaPValue-(this.deltaPValue * step / 12) - this.initialPressureValue));
 
-            this.ctx.lineTo(this.scaleFactor * this.param * (0.95 + step), this.scaleFactor * (this.deltaPValue-(this.deltaPValue * step / 12) - this.initialPressureValue));
-            console.log("116 lineTo x y");
-            console.log(this.scaleFactor * this.param * (0.95 + step), this.scaleFactor * (this.deltaPValue-(this.deltaPValue * step / 12) - this.initialPressureValue));
+            this.ctx.lineTo(this.scaleFactor * this.param * (1.95 + step), this.scaleFactor * (this.deltaPValue-(this.deltaPValue * step / 12) - this.initialPressureValue));
+            //console.log("116 lineTo x y");
+            //console.log(this.scaleFactor * this.param * (0.95 + step), this.scaleFactor * (this.deltaPValue-(this.deltaPValue * step / 12) - this.initialPressureValue));
 
-            this.ctx.lineTo(this.scaleFactor * this.param * (1 + step), 0);
-            console.log("120 lineTo x y");
-            console.log(this.scaleFactor * this.param * (1 + step), 0);
+            this.ctx.lineTo(this.scaleFactor * this.param * (2 + step), 0);
+            //console.log("120 lineTo x y");
+            //console.log(this.scaleFactor * this.param * (1 + step), 0);
 
         }
 
@@ -206,7 +224,7 @@ class DrawMainPage {
 
         this.ctx.font = "30px Times New Roman";
         this.ctx.textAlign = "left";
-        this.ctx.fillText("ΔP (бар)", 0, - this.deltaPValue - 15);
+        this.ctx.fillText("ΔP (бар)", 0, -200);
         this.ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
 }
