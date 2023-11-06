@@ -173,11 +173,32 @@ function drawGraphOnce() {
     let pressure = (heightWaterTowerTrue * density * 9.806)/100000; //P0
     let elastic_modulus_of_metal = 0;
     if (metal.value === 'copper') {
-        elastic_modulus_of_metal = 100000;
-    } else if (metal.value === 'aluminium') {
+        elastic_modulus_of_metal = 110000;
+        colorMetal = "#b87333";
+    }
+    else if (metal.value === 'aluminium') {
         elastic_modulus_of_metal = 70000;
-    } else if (metal.value === 'steel') {
+        colorMetal = "#a5a5a5";
+    }
+    else if (metal.value === 'steel') {
         elastic_modulus_of_metal = 200000;
+        colorMetal = "#738595";
+    }
+    else if (metal.value === 'iron') {
+        elastic_modulus_of_metal = 100000;
+        colorMetal = "#738595";
+    }
+    else if (metal.value === 'brass') {
+        elastic_modulus_of_metal = 90000;
+        colorMetal = "#738595";
+    }
+    else if (metal.value === 'wood') {
+        elastic_modulus_of_metal = 9000;
+        colorMetal = "#738595";
+    }
+    else if (metal.value === 'bronze') {
+        elastic_modulus_of_metal = 105000;
+        colorMetal = "#738595";
     }
     const startX = 5;
     let waterSpeed = Math.sqrt(2 * 9.806 * heightWaterTowerTrue);
@@ -256,11 +277,32 @@ function drawGraphTwice() {
     let pressure = (heightWaterTowerTrue * density * 9.806)/100000; //P0
     let elastic_modulus_of_metal = 0;
     if (metal.value === 'copper') {
-        elastic_modulus_of_metal = 100000;
-    } else if (metal.value === 'aluminium') {
+        elastic_modulus_of_metal = 110000;
+        colorMetal = "#b87333";
+    }
+    else if (metal.value === 'aluminium') {
         elastic_modulus_of_metal = 70000;
-    } else if (metal.value === 'steel') {
+        colorMetal = "#a5a5a5";
+    }
+    else if (metal.value === 'steel') {
         elastic_modulus_of_metal = 200000;
+        colorMetal = "#738595";
+    }
+    else if (metal.value === 'iron') {
+        elastic_modulus_of_metal = 100000;
+        colorMetal = "#738595";
+    }
+    else if (metal.value === 'brass') {
+        elastic_modulus_of_metal = 90000;
+        colorMetal = "#738595";
+    }
+    else if (metal.value === 'wood') {
+        elastic_modulus_of_metal = 9000;
+        colorMetal = "#738595";
+    }
+    else if (metal.value === 'bronze') {
+        elastic_modulus_of_metal = 105000;
+        colorMetal = "#738595";
     }
     const startX = 5;
     let waterSpeed = Math.sqrt(2 * 9.806 * heightWaterTowerTrue);
@@ -341,11 +383,32 @@ function drawGraphThird() {
     let pressure = (heightWaterTowerTrue * density * 9.806)/100000; //P0
     let elastic_modulus_of_metal = 0;
     if (metal.value === 'copper') {
-        elastic_modulus_of_metal = 100000;
-    } else if (metal.value === 'aluminium') {
+        elastic_modulus_of_metal = 110000;
+        colorMetal = "#b87333";
+    }
+    else if (metal.value === 'aluminium') {
         elastic_modulus_of_metal = 70000;
-    } else if (metal.value === 'steel') {
+        colorMetal = "#a5a5a5";
+    }
+    else if (metal.value === 'steel') {
         elastic_modulus_of_metal = 200000;
+        colorMetal = "#738595";
+    }
+    else if (metal.value === 'iron') {
+        elastic_modulus_of_metal = 100000;
+        colorMetal = "#738595";
+    }
+    else if (metal.value === 'brass') {
+        elastic_modulus_of_metal = 90000;
+        colorMetal = "#738595";
+    }
+    else if (metal.value === 'wood') {
+        elastic_modulus_of_metal = 9000;
+        colorMetal = "#738595";
+    }
+    else if (metal.value === 'bronze') {
+        elastic_modulus_of_metal = 105000;
+        colorMetal = "#738595";
     }
     const startX = 5;
     let waterSpeed = Math.sqrt(2 * 9.806 * heightWaterTowerTrue);
@@ -428,11 +491,32 @@ function drawGraphQuad() {
     let pressure = (heightWaterTowerTrue * density * 9.806)/100000; //P0
     let elastic_modulus_of_metal = 0;
     if (metal.value === 'copper') {
-        elastic_modulus_of_metal = 100000;
-    } else if (metal.value === 'aluminium') {
+        elastic_modulus_of_metal = 110000;
+        colorMetal = "#b87333";
+    }
+    else if (metal.value === 'aluminium') {
         elastic_modulus_of_metal = 70000;
-    } else if (metal.value === 'steel') {
+        colorMetal = "#a5a5a5";
+    }
+    else if (metal.value === 'steel') {
         elastic_modulus_of_metal = 200000;
+        colorMetal = "#738595";
+    }
+    else if (metal.value === 'iron') {
+        elastic_modulus_of_metal = 100000;
+        colorMetal = "#738595";
+    }
+    else if (metal.value === 'brass') {
+        elastic_modulus_of_metal = 90000;
+        colorMetal = "#738595";
+    }
+    else if (metal.value === 'wood') {
+        elastic_modulus_of_metal = 9000;
+        colorMetal = "#738595";
+    }
+    else if (metal.value === 'bronze') {
+        elastic_modulus_of_metal = 105000;
+        colorMetal = "#738595";
     }
     const startX = 5;
     let waterSpeed = Math.sqrt(2 * 9.806 * heightWaterTowerTrue);
@@ -551,7 +635,7 @@ function prepareScene()
     let pressure = heightWaterTowerTrue * density * 9.806; //P0
     let elastic_modulus_of_metal = 0;
     if (metal.value === 'copper') {
-        elastic_modulus_of_metal = 100000;
+        elastic_modulus_of_metal = 110000;
         colorMetal = "#b87333";
     }
     else if (metal.value === 'aluminium') {
@@ -578,8 +662,8 @@ function prepareScene()
         elastic_modulus_of_metal = 105000;
         colorMetal = "#738595";
     }
-    let waterSpeed = Math.sqrt(2*9.806*heightWaterTowerTrue);
-    let flowSpeed = (waterSpeed*Math.PI*(heightPipeTrue**2))/4000;
+    let waterSpeed = Math.sqrt(2*9.806*(heightWaterTowerTrue));
+    let flowSpeed = (waterSpeed*Math.PI*((heightPipeTrue/2)**2))/4000;
     let bucketTimeOfFilling = bucketVolume/flowSpeed;
     let a = (1 / (Math.sqrt(density * ((heightPipe / (elastic_modulus_of_metal * widthWall)) + (1 / elastic_modulus_of_liquid)))))*1000; //speed
     let param = 4000*((4*pipeLen)/a);
