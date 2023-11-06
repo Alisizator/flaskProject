@@ -1,7 +1,7 @@
 class MetalProperties {
     constructor() {
       this.metalData = {
-        copper: { elasticModulus: 100000, color: "#b87333" },
+        copper: { elasticModulus: 110000, color: "#b87333" },
         aluminium: { elasticModulus: 70000, color: "#a5a5a5" },
         steel: { elasticModulus: 200000, color: "#738595" },
         iron: { elasticModulus: 100000, color: "#738595" },
