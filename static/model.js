@@ -2,6 +2,8 @@ function draw (ctx,canvas,barrier,waterTower,pipe,bucket,waterSpeed,chek)
 {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     barrier.draw();
+    //barrier.drawPip();
+    //barrier.drawLowPip();
     waterTower.draw();
     pipe.draw();
     bucket.draw();
@@ -27,13 +29,21 @@ function draw (ctx,canvas,barrier,waterTower,pipe,bucket,waterSpeed,chek)
     function drawBarrier()
     {
         ctx.clearRect(barrier.startX, barrier.position, barrier.width, barrier.height);
-        barrier.draw()
+        ctx.clearRect(barrier.startX+barrier.width, barrier.position+barrier.height/4,barrier.width*2, barrier.height/2);
+        //ctx.clearRect(barrier.startX+barrier.width*3, barrier.position+barrier.height*(3/8),barrier.width*2, barrier.height/5)
+
+        barrier.draw();
+
+
         if(barrier.startY < barrier.position+pipe.heightPipe-pipe.widthWall)
             window.requestAnimationFrame(drawBarrier);
         barrier.startY += barrier.speedOnYAxis;
-        if(barrier.startY === barrier.position+pipe.heightPipe-pipe.widthWall || barrier.startY > barrier.position+pipe.heightPipe-pipe.widthWall)
+        if(barrier.startY === barrier.position+pipe.heightPipe-pipe.widthWall || barrier.startY > barrier.position+pipe.heightPipe-pipe.widthWall){
             //drawDefPipe();
+            barrier.drawPip();
+            barrier.drawLowPip();
             drawPipePressure();
+        }
     }
     function drawPipePressure()
     {
@@ -55,6 +65,8 @@ function draw (ctx,canvas,barrier,waterTower,pipe,bucket,waterSpeed,chek)
         pipe.drawPipePressureBack();
         ctx.clearRect(barrier.startX,0,canvas.width,canvas.height);
         barrier.draw();
+        barrier.drawPip();
+        barrier.drawLowPip();
         bucket.draw();
 
         if (pipe.pressureCoefficientBack < pipe.pipeLen) // Проверка на заполненность трубы
@@ -88,6 +100,8 @@ function draw (ctx,canvas,barrier,waterTower,pipe,bucket,waterSpeed,chek)
         ctx.clearRect(barrier.startX,0,canvas.width,canvas.height);
         drawGraphThird();
         barrier.draw();
+        barrier.drawPip();
+        barrier.drawLowPip();
         bucket.draw();
         if (pipe.pressureCoefficientRestart < pipe.pipeLen) // Проверка на заполненность трубы
         {

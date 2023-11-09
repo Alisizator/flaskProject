@@ -28,14 +28,17 @@ class DrawMainPage {
     drawVerticalLines() {
         this.ctx.strokeStyle = "black";
         this.ctx.fillStyle = "black"; // Set text color
-        this.ctx.font = "10px Times New Roman";
+        this.ctx.font = "bold 18px Times New Roman";
         this.ctx.textAlign = "center";
 
         this.ctx.beginPath();
-        for (let i = 0; i <= this.xAxis; i += this.param) {
+        let temp = 0;
+        for (let i = this.param; i <= this.xAxis; i += this.param) {
+
             let xPosition = i * this.scaleFactor;
             let roundedValue = xPosition.toFixed(2); // Round to two decimal places
-
+            let inputValue = ((this.pipeLen*2*temp)/this.trueSpeed).toFixed(2);
+            temp++;
             // Draw vertical line
             this.ctx.moveTo(xPosition, 0);
             this.ctx.lineTo(xPosition, this.yAxis);
@@ -44,7 +47,7 @@ class DrawMainPage {
             this.ctx.save();
             this.ctx.translate(xPosition, 830 * this.scaleFactor);
             this.ctx.rotate(-Math.PI / 4); // Rotate text by -45 degrees
-            this.ctx.fillText(roundedValue, 0, 0);
+            this.ctx.fillText(inputValue, 0, 0);
             this.ctx.restore(); // Restore canvas state
         }
         this.ctx.stroke(); // Apply all line drawing
@@ -88,7 +91,7 @@ class DrawMainPage {
         this.drawXAxis(3);
 
         this.ctx.beginPath();
-        this.ctx.font = "10px Times New Roman"; // Use a smaller font for y-axis labels
+        this.ctx.font = "bold 18px Times New Roman"; // Use a smaller font for y-axis labels
         this.ctx.textAlign = "right"; // Align text to the right of the y-axis
 
         for (let i = 0; i < this.yAxis; i += this.deltaPValue) {
@@ -124,9 +127,9 @@ class DrawMainPage {
     {
         let widthWall = parseFloat(document.getElementById("widthWall").value); //толщина стенок, 0,5-6мм
         let heightWaterTower = parseFloat(document.getElementById("heightWaterTower").value); //высота башни 5-15м
-        let pipeLen = parseFloat(document.getElementById("pipeLen").value); //длина трубы
-        if (pipeLen > 11 && pipeLen < 23)
-            pipeLen = 10;
+        this.pipeLen = parseFloat(document.getElementById("pipeLen").value); //длина трубы
+        if (this.pipeLen > 11 && this.pipeLen < 23)
+            this.pipeLen = 10;
         let heightPipe = parseFloat(document.getElementById("heightPipe").value); //диаметр трубы
 
         const liquidElement = document.getElementById('liquid');
@@ -155,8 +158,8 @@ class DrawMainPage {
         this.initialPressureValue = (heightWaterTower * liquid.density * 9.8) / 100000; //P0 в барах
         this.trueInitialPressureValue = ((heightWaterTower/1000) * (liquid.density*1000) * 9.8) / 100000000; //P0, ГПа
 
-        this.param = 4000 * ((4 * pipeLen) / a);
-        this.trueParam = ((4 * pipeLen) / this.trueSpeed);
+        this.param = 4000 * ((4 * this.pipeLen) / a);
+        this.trueParam = ((4 * this.pipeLen) / this.trueSpeed);
         if (this.param > 300) {
             this.param = 150;
         }
