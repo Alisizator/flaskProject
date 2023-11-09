@@ -37,7 +37,7 @@ class DrawMainPage {
 
             let xPosition = i * this.scaleFactor;
             let roundedValue = xPosition.toFixed(2); // Round to two decimal places
-            let inputValue = ((this.pipeLen*2*temp)/this.trueSpeed).toFixed(2);
+            let inputValue = ((this.pipeLen*2*temp)/this.trueSpeed).toFixed(4);
             temp++;
             // Draw vertical line
             this.ctx.moveTo(xPosition, 0);
