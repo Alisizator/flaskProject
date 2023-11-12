@@ -26,6 +26,7 @@ function draw (ctx,canvas,barrier,waterTower,pipe,bucket,waterSpeed,chek)
         if (pipe.fieldPipe === pipe.pipeLen + pipe.widthWall || pipe.fieldPipe > pipe.pipeLen + pipe.widthWall)
             drawBucket();
     }
+
     function drawBarrier()
     {
         ctx.clearRect(barrier.startX, barrier.position, barrier.width, barrier.height);
@@ -114,6 +115,7 @@ function draw (ctx,canvas,barrier,waterTower,pipe,bucket,waterSpeed,chek)
         {
             setTimeout(drawGraphQuad,1800*(pipe.pipeLen/100));
         }
+
     }
 
     function drawBucket()
@@ -226,7 +228,6 @@ function drawGraphOnce() {
     const xAxis = canvas.width;
     const yAxis = canvas.height;
     ctx.translate(startX+200, yAxis - Increment-10);
-
         ctx.beginPath();
         ctx.strokeStyle = "blue";
         ctx.moveTo(0, 0);
@@ -557,10 +558,21 @@ function drawGraphQuad() {
         ctx.lineTo(param * (0.95), (Increment - pressure));
         ctx.lineTo(param * (1), 0);
         ctx.stroke();
+
+        ctx.strokeStyle = 'black';
+        ctx.beginPath();
+        ctx.moveTo( - 5, (Increment - pressure) * 1.1 + 5);
+        ctx.lineTo( - 5, -(Increment - pressure) * 1.1 - 5);
+        ctx.lineTo(param + 5, -(Increment - pressure) * 1.1 - 5);
+        ctx.lineTo(param + 5, (Increment - pressure) * 1.1 + 5);
+        //ctx.lineTo(param * (1), (Increment - pressure) * 1.1 - 5);
+        //ctx.closePath();
+        ctx.stroke();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 }
 function prepareScene()
 {
+
     let chek = 0;
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
@@ -590,6 +602,8 @@ function prepareScene()
     let startBucketY = 30+heightWaterTower;
     let startYBarrier = startY+heightWaterTower-heightPipe*2-widthWall*2;
     let startXBarrier = startX+pipeLen+widthWaterTower;
+
+
 
     const liquid = document.getElementById('liquid');
     const metal =  document.getElementById('metal');
@@ -686,8 +700,6 @@ function prepareScene()
         param = 150;
     }
     let Increment = (density * waterSpeed * a)/100000; //delta P в барах
-
-
     document.getElementById("myInput").value = bucketTimeOfFilling;
     let Part = density*waterSpeed*(1/(Math.sqrt(density*((heightPipeTrue/(elastic_modulus_of_metal*widthWallTrue))+(1/elastic_modulus_of_liquid))))) //delta P
     let absolute = pressure*((heightPipeTrue**2)/(4*elastic_modulus_of_metal*widthWallTrue)) //delta R
