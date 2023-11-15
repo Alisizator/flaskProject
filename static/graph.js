@@ -37,8 +37,13 @@ class DrawMainPage {
 
             let xPosition = i * this.scaleFactor;
             let roundedValue = xPosition.toFixed(2); // Round to two decimal places
-            let inputValue = ((this.pipeLen*2*temp)/this.trueSpeed).toFixed(4);
-            temp++;
+            let inputValue = ((this.truePipeLen*2*temp)/this.trueSpeed).toFixed(4);
+            // console.log(inputValue);
+            // console.log("aaaaaaaa");
+            // console.log(this.truePipeLen);
+            // console.log(this.trueSpeed);
+            // console.log(temp)
+            temp = temp + 2;
             // Draw vertical line
             this.ctx.moveTo(xPosition, 0);
             this.ctx.lineTo(xPosition, this.yAxis);
@@ -128,6 +133,7 @@ class DrawMainPage {
         let widthWall = parseFloat(document.getElementById("widthWall").value); //толщина стенок, 0,5-6мм
         let heightWaterTower = parseFloat(document.getElementById("heightWaterTower").value); //высота башни 5-15м
         this.pipeLen = parseFloat(document.getElementById("pipeLen").value); //длина трубы
+        this.truePipeLen = this.pipeLen;
         if (this.pipeLen > 11 && this.pipeLen < 23)
             this.pipeLen = 10;
         let heightPipe = parseFloat(document.getElementById("heightPipe").value); //диаметр трубы
@@ -142,7 +148,7 @@ class DrawMainPage {
 
 
         let waterSpeed = Math.sqrt(2 * 9.806 * heightWaterTower);
-        console.log(heightWaterTower);
+        //console.log(heightWaterTower);
         //this.trueFlowSpeed = 55;//????????????????
 
         let a = (1 / (Math.sqrt(liquid.density * ((heightPipe / (metal.elasticModulus * widthWall)) + (1 / liquid.elasticModulus))))) * 1000; //speed
@@ -150,9 +156,9 @@ class DrawMainPage {
         console.log(liquid.density);
         this.deltaPValue = (liquid.density * waterSpeed * a) / 100000; //delta P в барах
         this.trueDeltaPValue = ((liquid.density*1000) * waterSpeed * this.trueSpeed) / 100000000; //deltaP, ГПа
-
-        console.log(waterSpeed);
-        console.log(this.trueDeltaPValue);
+        // console.log(a);
+        // console.log(waterSpeed);
+        // console.log(this.trueDeltaPValue);
         //console.log(this.waterSpeed);
 
         this.initialPressureValue = (heightWaterTower * liquid.density * 9.8) / 100000; //P0 в барах

@@ -64,7 +64,7 @@ function draw (ctx,canvas,barrier,waterTower,pipe,bucket,waterSpeed,chek)
     function drawPipePressureBack()
     {
         pipe.drawPipePressureBack();
-        ctx.clearRect(barrier.startX,0,canvas.width,canvas.height);
+        ctx.clearRect(barrier.startX,0,100,canvas.height);
         barrier.draw();
         barrier.drawPip();
         barrier.drawLowPip();
@@ -227,12 +227,24 @@ function drawGraphOnce() {
     let Increment = (density * waterSpeed * a) / 100000; //delta P в барах
     const xAxis = canvas.width;
     const yAxis = canvas.height;
-    ctx.translate(startX+200, yAxis - Increment-10);
+    let widthWaterTower = 160;
+    let startBucketX = 30+pipeLen+widthWaterTower;
+    ctx.translate(startX + startBucketX + 200, yAxis - Increment-10);
         ctx.beginPath();
         ctx.strokeStyle = "blue";
         ctx.moveTo(0, 0);
         ctx.lineTo(param * (0.05), -(Increment - pressure) * 1.1);
         ctx.lineTo(param * (0.1), -(Increment - pressure));
+        ctx.stroke();
+
+        ctx.strokeStyle = 'black';
+        ctx.beginPath();
+        ctx.moveTo( - 5, (Increment - pressure) * 1.1 + 5);
+        ctx.lineTo( - 5, -(Increment - pressure) * 1.1 - 5);
+        ctx.lineTo(param + 5, -(Increment - pressure) * 1.1 - 5);
+        ctx.lineTo(param + 5, (Increment - pressure) * 1.1 + 5);
+        //ctx.lineTo(param * (1), (Increment - pressure) * 1.1 - 5);
+        //ctx.closePath();
         ctx.stroke();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 }
@@ -330,7 +342,9 @@ function drawGraphTwice() {
     let Increment = (density * waterSpeed * a) / 100000; //delta P в барах
     const xAxis = canvas.width;
     const yAxis = canvas.height;
-    ctx.translate(startX+200, yAxis - Increment-10);
+    let widthWaterTower = 160;
+    let startBucketX = 30+pipeLen+widthWaterTower;
+    ctx.translate(startX + startBucketX + 200, yAxis - Increment-10);
 
         ctx.beginPath();
         ctx.strokeStyle = "blue";
@@ -339,6 +353,16 @@ function drawGraphTwice() {
         ctx.lineTo(param * (0.1), -(Increment - pressure));
         ctx.lineTo(param * (0.45), -(Increment - pressure));
         ctx.lineTo(param * (0.5), 0);
+        ctx.stroke();
+
+        ctx.strokeStyle = 'black';
+        ctx.beginPath();
+        ctx.moveTo( - 5, (Increment - pressure) * 1.1 + 5);
+        ctx.lineTo( - 5, -(Increment - pressure) * 1.1 - 5);
+        ctx.lineTo(param + 5, -(Increment - pressure) * 1.1 - 5);
+        ctx.lineTo(param + 5, (Increment - pressure) * 1.1 + 5);
+        //ctx.lineTo(param * (1), (Increment - pressure) * 1.1 - 5);
+        //ctx.closePath();
         ctx.stroke();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 }
@@ -436,7 +460,9 @@ function drawGraphThird() {
     let Increment = (density * waterSpeed * a) / 100000; //delta P в барах
     const xAxis = canvas.width;
     const yAxis = canvas.height;
-    ctx.translate(startX+200, yAxis - Increment-10);
+    let widthWaterTower = 160;
+    let startBucketX = 30+pipeLen+widthWaterTower;
+    ctx.translate(startX + startBucketX + 200, yAxis - Increment - 10);
 
         ctx.beginPath();
         ctx.strokeStyle = "blue";
@@ -447,6 +473,16 @@ function drawGraphThird() {
         ctx.lineTo(param * (0.5), 0);
         ctx.lineTo(param * (0.55), (Increment - pressure) * 1.1);
         ctx.lineTo(param * (0.6), (Increment - pressure));
+        ctx.stroke();
+
+        ctx.strokeStyle = 'black';
+        ctx.beginPath();
+        ctx.moveTo( - 5, (Increment - pressure) * 1.1 + 5);
+        ctx.lineTo( - 5, -(Increment - pressure) * 1.1 - 5);
+        ctx.lineTo(param + 5, -(Increment - pressure) * 1.1 - 5);
+        ctx.lineTo(param + 5, (Increment - pressure) * 1.1 + 5);
+        //ctx.lineTo(param * (1), (Increment - pressure) * 1.1 - 5);
+        //ctx.closePath();
         ctx.stroke();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 }
@@ -544,7 +580,9 @@ function drawGraphQuad() {
     let Increment = (density * waterSpeed * a) / 100000; //delta P в барах
     const xAxis = canvas.width;
     const yAxis = canvas.height;
-    ctx.translate(startX+200, yAxis - Increment-10);
+    let widthWaterTower = 160;
+    let startBucketX = 30+pipeLen+widthWaterTower;
+    ctx.translate(startX + startBucketX + 200, yAxis - Increment-10);
 
         ctx.beginPath();
         ctx.strokeStyle = "blue";
@@ -692,7 +730,12 @@ function prepareScene()
     }
     let waterSpeed = Math.sqrt(2*9.806*(heightWaterTowerTrue));
     let flowSpeed = (waterSpeed*Math.PI*((heightPipeTrue/2)**2))/4000;
-    let bucketTimeOfFilling = bucketVolume/flowSpeed;
+    let bucketTimeOfFilling = ((bucketVolume/1000) * 4) / (waterSpeed * Math.PI * (heightPipeTrue/1000)**2);
+    // console.log(bucketVolume/1000);
+    // console.log(waterSpeed);
+    // console.log(bucketTimeOfFilling);
+    // console.log(heightPipeTrue);
+    // console.log(Math.PI);
     let a = (1 / (Math.sqrt(density * ((heightPipe / (elastic_modulus_of_metal * widthWall)) + (1 / elastic_modulus_of_liquid)))))*1000; //speed
     let param = 4000*((4*pipeLen)/a);
     {
