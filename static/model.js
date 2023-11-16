@@ -229,20 +229,25 @@ function drawGraphOnce() {
     const yAxis = canvas.height;
     let widthWaterTower = 160;
     let startBucketX = 30+pipeLen+widthWaterTower;
-    ctx.translate(startX + startBucketX + 200, yAxis - Increment-10);
+    let fakeIncrement = Increment;
+    if(Increment > 100)
+    {
+        fakeIncrement = 100;
+    }
+    ctx.translate(startX + startBucketX + 200, yAxis - fakeIncrement - 10);
         ctx.beginPath();
         ctx.strokeStyle = "blue";
         ctx.moveTo(0, 0);
-        ctx.lineTo(param * (0.05), -(Increment - pressure) * 1.1);
-        ctx.lineTo(param * (0.1), -(Increment - pressure));
+        ctx.lineTo(param * (0.05), -(fakeIncrement - pressure) * 1.1);
+        ctx.lineTo(param * (0.1), -(fakeIncrement - pressure));
         ctx.stroke();
 
         ctx.strokeStyle = 'black';
         ctx.beginPath();
-        ctx.moveTo( - 5, (Increment - pressure) * 1.1 + 5);
-        ctx.lineTo( - 5, -(Increment - pressure) * 1.1 - 5);
-        ctx.lineTo(param + 5, -(Increment - pressure) * 1.1 - 5);
-        ctx.lineTo(param + 5, (Increment - pressure) * 1.1 + 5);
+        ctx.moveTo( - 5, (fakeIncrement - pressure) * 1.1 + 5);
+        ctx.lineTo( - 5, -(fakeIncrement - pressure) * 1.1 - 5);
+        ctx.lineTo(param + 5, -(fakeIncrement - pressure) * 1.1 - 5);
+        ctx.lineTo(param + 5, (fakeIncrement - pressure) * 1.1 + 5);
         //ctx.lineTo(param * (1), (Increment - pressure) * 1.1 - 5);
         //ctx.closePath();
         ctx.stroke();
@@ -344,23 +349,28 @@ function drawGraphTwice() {
     const yAxis = canvas.height;
     let widthWaterTower = 160;
     let startBucketX = 30+pipeLen+widthWaterTower;
-    ctx.translate(startX + startBucketX + 200, yAxis - Increment-10);
+    let fakeIncrement = Increment;
+    if(Increment > 100)
+    {
+        fakeIncrement = 100;
+    }
+    ctx.translate(startX + startBucketX + 200, yAxis - fakeIncrement-10);
 
         ctx.beginPath();
         ctx.strokeStyle = "blue";
         ctx.moveTo(0, 0);
-        ctx.lineTo(param * (0.05), -(Increment - pressure) * 1.1);
-        ctx.lineTo(param * (0.1), -(Increment - pressure));
-        ctx.lineTo(param * (0.45), -(Increment - pressure));
+        ctx.lineTo(param * (0.05), -(fakeIncrement - pressure) * 1.1);
+        ctx.lineTo(param * (0.1), -(fakeIncrement - pressure));
+        ctx.lineTo(param * (0.45), -(fakeIncrement - pressure));
         ctx.lineTo(param * (0.5), 0);
         ctx.stroke();
 
         ctx.strokeStyle = 'black';
         ctx.beginPath();
-        ctx.moveTo( - 5, (Increment - pressure) * 1.1 + 5);
-        ctx.lineTo( - 5, -(Increment - pressure) * 1.1 - 5);
-        ctx.lineTo(param + 5, -(Increment - pressure) * 1.1 - 5);
-        ctx.lineTo(param + 5, (Increment - pressure) * 1.1 + 5);
+        ctx.moveTo( - 5, (fakeIncrement - pressure) * 1.1 + 5);
+        ctx.lineTo( - 5, -(fakeIncrement - pressure) * 1.1 - 5);
+        ctx.lineTo(param + 5, -(fakeIncrement - pressure) * 1.1 - 5);
+        ctx.lineTo(param + 5, (fakeIncrement - pressure) * 1.1 + 5);
         //ctx.lineTo(param * (1), (Increment - pressure) * 1.1 - 5);
         //ctx.closePath();
         ctx.stroke();
@@ -462,25 +472,32 @@ function drawGraphThird() {
     const yAxis = canvas.height;
     let widthWaterTower = 160;
     let startBucketX = 30+pipeLen+widthWaterTower;
-    ctx.translate(startX + startBucketX + 200, yAxis - Increment - 10);
+//    console.log(Increment);
+//    console.log(pressure);
+    let fakeIncrement = Increment;
+    if(Increment > 100)
+    {
+        fakeIncrement = 100;
+    }
+    ctx.translate(startX + startBucketX + 200, yAxis - fakeIncrement - 10);
 
         ctx.beginPath();
         ctx.strokeStyle = "blue";
         ctx.moveTo(0, 0);
-        ctx.lineTo(param * (0.05), -(Increment - pressure) * 1.1);
-        ctx.lineTo(param * (0.1), -(Increment - pressure));
-        ctx.lineTo(param * (0.45), -(Increment - pressure));
+        ctx.lineTo(param * (0.05), -(fakeIncrement - pressure) * 1.1);
+        ctx.lineTo(param * (0.1), -(fakeIncrement - pressure));
+        ctx.lineTo(param * (0.45), -(fakeIncrement- pressure));
         ctx.lineTo(param * (0.5), 0);
-        ctx.lineTo(param * (0.55), (Increment - pressure) * 1.1);
-        ctx.lineTo(param * (0.6), (Increment - pressure));
+        ctx.lineTo(param * (0.55), (fakeIncrement - pressure) * 1.1);
+        ctx.lineTo(param * (0.6), (fakeIncrement- pressure));
         ctx.stroke();
 
         ctx.strokeStyle = 'black';
         ctx.beginPath();
-        ctx.moveTo( - 5, (Increment - pressure) * 1.1 + 5);
-        ctx.lineTo( - 5, -(Increment - pressure) * 1.1 - 5);
-        ctx.lineTo(param + 5, -(Increment - pressure) * 1.1 - 5);
-        ctx.lineTo(param + 5, (Increment - pressure) * 1.1 + 5);
+        ctx.moveTo( - 5, (fakeIncrement - pressure) * 1.1 + 5);
+        ctx.lineTo( - 5, -(fakeIncrement- pressure) * 1.1 - 5);
+        ctx.lineTo(param + 5, -(fakeIncrement - pressure) * 1.1 - 5);
+        ctx.lineTo(param + 5, (fakeIncrement- pressure) * 1.1 + 5);
         //ctx.lineTo(param * (1), (Increment - pressure) * 1.1 - 5);
         //ctx.closePath();
         ctx.stroke();
@@ -582,27 +599,32 @@ function drawGraphQuad() {
     const yAxis = canvas.height;
     let widthWaterTower = 160;
     let startBucketX = 30+pipeLen+widthWaterTower;
-    ctx.translate(startX + startBucketX + 200, yAxis - Increment-10);
+    let fakeIncrement = Increment;
+    if(Increment > 100)
+    {
+        fakeIncrement = 100;
+    }
+    ctx.translate(startX + startBucketX + 200, yAxis - fakeIncrement-10);
 
         ctx.beginPath();
         ctx.strokeStyle = "blue";
         ctx.moveTo(0, 0);
-        ctx.lineTo(param * (0.05), -(Increment - pressure) * 1.1);
-        ctx.lineTo(param * (0.1), -(Increment - pressure));
-        ctx.lineTo(param * (0.45), -(Increment - pressure));
+        ctx.lineTo(param * (0.05), -(fakeIncrement - pressure) * 1.1);
+        ctx.lineTo(param * (0.1), -(fakeIncrement - pressure));
+        ctx.lineTo(param * (0.45), -(fakeIncrement - pressure));
         ctx.lineTo(param * (0.5), 0);
-        ctx.lineTo(param * (0.55), (Increment - pressure) * 1.1);
-        ctx.lineTo(param * (0.6), (Increment - pressure));
-        ctx.lineTo(param * (0.95), (Increment - pressure));
+        ctx.lineTo(param * (0.55), (fakeIncrement - pressure) * 1.1);
+        ctx.lineTo(param * (0.6), (fakeIncrement - pressure));
+        ctx.lineTo(param * (0.95), (fakeIncrement - pressure));
         ctx.lineTo(param * (1), 0);
         ctx.stroke();
 
         ctx.strokeStyle = 'black';
         ctx.beginPath();
-        ctx.moveTo( - 5, (Increment - pressure) * 1.1 + 5);
-        ctx.lineTo( - 5, -(Increment - pressure) * 1.1 - 5);
-        ctx.lineTo(param + 5, -(Increment - pressure) * 1.1 - 5);
-        ctx.lineTo(param + 5, (Increment - pressure) * 1.1 + 5);
+        ctx.moveTo( - 5, (fakeIncrement - pressure) * 1.1 + 5);
+        ctx.lineTo( - 5, -(fakeIncrement - pressure) * 1.1 - 5);
+        ctx.lineTo(param + 5, -(fakeIncrement - pressure) * 1.1 - 5);
+        ctx.lineTo(param + 5, (fakeIncrement - pressure) * 1.1 + 5);
         //ctx.lineTo(param * (1), (Increment - pressure) * 1.1 - 5);
         //ctx.closePath();
         ctx.stroke();
